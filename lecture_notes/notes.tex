@@ -1,0 +1,74 @@
+\documentclass{article}
+
+\usepackage{../preamble}
+\usepackage{../macros}
+
+\title{Notes for High-Dimensional Probability:\\ Random Vectors in High Dimensions}
+
+\author{%
+  Isak Falk \& Dimitri Meunier
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Preliminaries}
+
+\begin{proposition}
+  \label{prop:sub-gauss-sub-exp-norm-relation}
+  Let \(X\) be a real-values random variable and \(Y = \sqrt{\abs{X}}\). Then
+  \(X\) is sub-exponential if and only if \(Y\) is sub-Gaussian, and in such
+  case \(\norm{X}_{\psi_{1}} = \norm{Y}_{\psi_{2}}^{2}\)
+\end{proposition}
+
+\begin{theorem}[Bernstein's inequality]
+  \label{thm:bernsteins-ineq}
+  Let \((X_{i})_{i=1}^{n}\) be a sequence of independent real-valued zero-mean
+  random variables such that \(\norm{X_{i}}_{\psi_{2}} < \infty\). Then, for
+  every \(t > 0\)
+  \begin{equation}
+    \Pr(\abs*{\sum_{i=1}^{n}X_{i}} > t) \leq 2\exp(-\frac{1}{2}\min(\frac{t^{2}}{\sum_{i=1}^{n}\norm{X_{i}}_{\psi_{1}}}, \frac{t}{\max_{i}\norm{X_{i}}_{\psi_{1}}})).
+  \end{equation}
+\end{theorem}
+
+
+\section{Concentration of the Norm}
+\begin{theorem}[Concentration of the \(L_{2}\) norm]
+Let \(X = (X_{1}, \dots, X_{n}) \in \R^{n}\) be a random vector with independent
+sub-gaussian coordinates \(X_{i}\) that satisfy \(\E X_{i}^{2} = 1\). Then
+\begin{equation}
+  \norm{\norm{X}_{2} - \sqrt{n}}_{\psi_{2}} \leq CK^{2},
+\end{equation}
+where \(K = \max_{i} \norm{X_{i}}_{\psi_{2}}\) and \(C\) is an absolute constant.
+\end{theorem}
+
+\begin{proof}
+  We first note that \(K \geq 1\). By Jensen's Inequality we have that
+  \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
+  and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
+  \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
+  \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
+
+  Now consider the quantity \(\frac{1}{n}\norm{X}_{2}^{2} - 1\) which we can write as
+  \begin{equation}
+    \frac{1}{n}\norm{X}_{2}^{2} - 1 = \frac{1}{n}\sum_{i=1}^{n}(X_{i}^{2} - 1) = \frac{1}{n}\sum_{i=1}^{n}Y_{i},
+  \end{equation}
+  where \(Y_{i} = X_{i}^{2} - 1\). Since \(\E X_{i}^{2} = 1\) for any \(i\),
+  \((Y_{i})_{i=1}^{n}\) is a vector of zero-centred random variables. Since
+  \(\norm{X_{i}}_{\psi_{2}} < \infty\) we can show that
+  \(\norm{Y_{i}}_{\psi_{1}} < \infty\) since
+  \begin{align}
+    \norm{X_i^2 - 1}_{\psi_1} & \leq C\norm{X_i^2}_{\psi_1} \\ 
+                              & = C\norm{X_i}_{\psi_2}^2 \\
+                              & \leq C K^2,
+  \end{align}
+  by use of centring property of sub-exponential norm, \cref{prop:sub-gauss-sub-exp-norm-relation} and definition of \(K\). Since we showed
+  that \(Y_{i}\)'s are sub-exponential we can apply Bernstein's Inequality
+  \cref{thm:bernsteins-ineq} to see that
+  \begin{equation}
+
+  \end{equation}
+\end{proof}
+
+\end{document}
