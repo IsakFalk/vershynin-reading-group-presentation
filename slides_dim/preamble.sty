@@ -1,0 +1,188 @@
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts,amsmath,amsthm,amssymb,} 
+%\usepackage{bbm}
+%\usepackage{stmaryrd}
+%\usepackage{thmtools} 
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+%\usepackage{algorithm,algorithmic,caption}
+%\usepackage{MnSymbol,wasysym}
+\usepackage{dsfont}
+%\usepackage[all]{xy}
+%\usepackage{enumitem}
+%\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{fancyhdr}
+%\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor=red,
+    filecolor=green,      
+    urlcolor=cyan,
+}
+
+%\usepackage{stackengine}
+%\usepackage{scalerel}
+%\usepackage{xcolor}
+%\newcommand\dangersign[1][2ex]{%
+%  \renewcommand\stacktype{L}%
+ % \scaleto{\stackon[1.3pt]{\color{red}$\triangle$}{\tiny\bfseries !}}{#1}%
+%}
+
+%\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage{tcolorbox}
+%\usepackage{empheq}
+%\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\usepackage[round]{natbib}   % omit 'round' option if you prefer square brackets
+\bibliographystyle{plainnat}
+%\usepackage{biblatex}
+%\addbibresource{file.bib}
+%\usepackage{csquotes}
+
+% -------------------------------------------------------
+%\setlength{\columnseprule}{0.1pt}
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{10pt}
+
+%\allowdisplaybreaks
+%\jot=0pt
+
+
+% -------------------------------------------------------
+% Sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Rd}{\mathbb{R}^{d}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\Rp}{\mathbb{R}^{p}}
+\newcommand{\Rq}{\mathbb{R}^{q}}
+
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cT}{\mathcal{T}}
+
+%\newcommand{\calC}{\mathcal{C}}
+
+%\newcommand{\calW}{\mathcal{W}}
+%\newcommand{\calZ}{\mathcal{Z}}
+%\DeclareMathOperator{\Cov}{Cov}	
+%\newcommand{\var}{\mathbb{V}ar}
+%\newcommand\RR{\mathbb{R}}
+%\newcommand\CC{\mathbb{C}}
+%\newcommand\PP{\mathbb{P}}
+%\newcommand\TT{\mathbb{T}}
+
+%\newcommand{\segent}[2]{\llbracket#1, #2\rrbracket}	
+%\newcommand{\fonc}[3]{#1 : #2 \longrightarrow #3}
+%\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}		
+
+
+\newcommand{\mipi}{[- \infty, + \infty]}
+
+\renewcommand{\L}{L^{1}(\R)}
+\newcommand{\Ld}{L^{2}(\R)}
+\newcommand{\Lp}{L^{p}(\R)}
+\newcommand{\Linf}{L^{\infty}(\R)}
+
+\newcommand{\La}{L^{1}}
+\newcommand{\Lda}{L^{2}}
+\newcommand{\Lpa}{L^{p}}
+\newcommand{\Linfa}{L^{\infty}}
+
+\renewcommand{\l}{\ell^{1}(\Z)}
+\newcommand{\ld}{\ell^{2}(\Z)}
+\newcommand{\linf}{\ell^{\infty}(\Z)}
+
+
+% -------------------------------------------------------
+% Notations
+\newcommand{\tf}[1]{\mathcal{F}\left(#1\right)}
+\newcommand{\tfi}[1]{\overline{\mathcal{F}}\left(#1\right)}
+
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\ps}{\underset{n \to +\infty}{\overset{p.s.}{\longrightarrow}}} %#2
+\newcommand{\pss}{\underset{n \to +\infty}{\longrightarrow}} %#2
+\newcommand{\psss}{\underset{n \to +\infty}{\nrightarrow}} %#2
+\newcommand{\prob}[2]{#1 \overset{\P}{\longrightarrow} #2}
+\newcommand{\lp}[2]{#1 \overset{\Lp}{\longrightarrow} #2}
+\newcommand{\law}[2]{#1 \Longrightarrow #2}
+\newcommand{\distr}[2]{#1 \overset{d}{\longrightarrow} #2}
+
+%\newcommand{\norm}[2]{\left|\left| #1 \right|\right|_{#2}}
+%\newcommand{\norm}{\left|\left| #1 \right|\right|}
+\newcommand{\set}[2]{\left\{ #1 \mid #2\right\}}
+\newcommand{\rotvert}{\rotatebox[origin=c]{90}{$\vert$}}
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\relint}{relint}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Diag}{Diag}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Hessian}{Hess}
+\newcommand{\ie}{\textit{i.e.\,}}
+\newcommand{\eg}{\textit{e.g.\,}}
+\renewcommand{\emph}[1]{\textbf{\textit{#1}}}
+
+\newcommand{\indep}{\perp \!\!\! \perp}
+
+
+% -Theorem -----------------------
+\newtheorem{definition}{Definition} %[section]
+\newtheorem{prop}{Proposition}
+\newtheorem{theorem}{Theorem}
+%\newtheorem{definition}{Definition}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{prop}{Proposition}
+%\newtheorem{prv}{Proof}
+\newtheorem{corollary}{Corollary}[prop]
+
+
+% opti
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% greek letters
+\newcommand{\si}{\sigma}
+\newcommand{\al}{\alpha}
+\newcommand{\la}{\lambda}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+%\newcommand{\lb}{\Lambda}
+%\newcommand{\si}{\sigma}
+\newcommand{\Si}{\Sigma}
+\newcommand{\be}{\beta}
+\newcommand{\de}{\delta}
+\newcommand{\De}{\Delta}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+%\newcommand{\phi}{\varphi}
+\newcommand{\thet}{\theta}
+\newcommand{\Th}{\Theta}
+\newcommand{\ka}{\kappa}
+
+

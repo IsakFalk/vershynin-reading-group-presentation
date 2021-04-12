@@ -1,0 +1,219 @@
+\documentclass{beamer}
+\usepackage{../preamble_slides}
+\usepackage{../macros}
+\usepackage{preamble}
+
+\usetheme{metropolis}
+
+%%% Remove nav symbols (and shift any logo down to corner)
+\setbeamertemplate{navigation symbols}{\vspace{-2ex}}
+
+\title{Random Vectors in High Dimensions}
+\author{Isak Falk \and Dimitri Meunier}
+\institute{IITT}
+
+\begin{document}
+  \maketitle
+
+\section{(Sub-)Gaussian Distributions}
+
+  \begin{frame}{Characteristic function}
+
+    \begin{definition}[Characteristic function]
+      if $X$ is a real random vector, the characteristic function of $X$ is the function
+      $\Phi_{X}: \mathbb{R}^{d} \longrightarrow \mathbb{C}$ defined by 
+      $$
+      \Phi_{X}(\xi)=E[\exp (i \xi \cdot X)] = \int e^{i \xi \cdot x} \P_{X}(d x), \quad \xi \in \mathbb{R}^{d}
+      $$
+
+      $\Phi_{X}$ is the Fourier transform of the distribution on $X$.
+    \end{definition}
+
+    \pause
+
+    \begin{theorem}
+      The characteristic function of a real random vector $X$ characterised its
+      distribution: $\Phi_X = \Phi_Y \implies \P_X = \P_Y$.
+    \end{theorem}kk
+
+    \pause
+
+    \begin{prop}
+      $X=(X_1,\ldots,X_d)$ has independant coordinates if and only if \\ 
+      $\Phi_{X}\left(\xi_{1}, \ldots, \xi_{d}\right)=\prod_{i=1}^{d}
+      \Phi_{X_{i}}\left(\xi_{i}\right)$
+    \end{prop}
+  \end{frame}
+
+  \begin{frame}{Univariate Gaussian distribution}
+    
+    The univariate standard normal (or Gaussian) random variable  $Z \sim
+    \cN_1(0,1)$, is the random variable with density function,
+    $$f_Z(x)=(2\pi)^{-\frac{1}{2}} e^{-\frac{1}{2}x^{2}}.$$
+
+    \pause
+
+    $X \sim \cN_1(\mu,\sigma^2)$ if $X = \mu + \sigma Z$
+    ($\sigma \geq 0$) where  $Z \sim \cN_1(0,1)$.
+
+    $$f_X(x)=(2
+    \pi\sigma^2)^{-\frac{1}{2}} e^{-\frac{1}{2\sigma^2}(x-\mu)^{2}} \qquad
+    (\sigma > 0) $$
+
+    \pause
+    
+      $$
+      \Phi_{X}(\xi)=\exp \left(i\xi \mu -\frac{\sigma^{2} \xi^{2}}{2}\right), \quad \xi \in \mathbb{R}
+      $$
+  \end{frame}
+
+  \begin{frame}{Gaussian vectors -- definition}
+    \begin{definition}
+      Let $X:(\Omega,\cA,\P) \to \Rd$ be a real random vector. $X$ is a \textbf{Gaussian
+        vector} if for all $\theta \in \Rd$, $\langle X, \theta \rangle$ has a
+      univariate normal distribution.
+    \end{definition}
+
+    \pause
+
+    \begin{theorem} $X$ is a Gaussian vector if and only if, there exists a
+      vector $\mu \in \mathbb{R}^{d}$ and a symmetric matrix $K \in \R^{d \times d}$ such that, 
+      
+      \begin{equation}
+        \Phi_{X}(\xi)=\exp \left(i \mu \cdot \xi-\frac{1}{2} \xi^t K \xi\right),
+        \qquad \xi \in \Rd.
+      \end{equation}
+      
+      Furthermore, $\mu = \E[X]$ and $K := \mathbb{V}(X)$, we use the notation
+      $X \sim \cN_d(\mu,K)$.
+    \end{theorem}
+
+    \textcolor{red}{PROOF}. 
+  \end{frame}
+
+  \begin{frame}{Gaussian vectors - properties}
+
+    \begin{corollary}
+      \begin{itemize}
+      \item If $X$ is a Gaussian vector, its coordinates are independant if and only if
+        the covariance matrix is diagonal.
+
+        \pause
+        
+      \item If $X$ is a vector of independent univariate
+        Gaussian variables, $X$ is a Gaussian vector
+
+        \pause
+        
+      \item  $X \sim \cN_d(0,I_d)$ if and only if its coordinates are i.i.d with
+        distribution $\cN(0,1)$. $X$ is called a \textbf{standard Gaussian}
+        vector.
+
+      \end{itemize}
+    \end{corollary}
+
+    \pause
+
+    \begin{prop}
+      If $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
+      \in \R^r$, $Y = BX + b$ is also a Gaussian vector.
+    \end{prop}
+    
+  \end{frame}
+
+  \begin{frame}{Sub-Gaussian vectors -- definition}
+    \begin{definition}[Sub-gaussian random vectors] A random vector $X$ in
+      $\mathbb{R}^{d}$ is called sub-gaussian if the one-dimensional marginals
+      $\langle X, \theta \rangle$ are sub-gaussian random variables for all $\theta \in \mathbb{R}^{n} .$ The sub-gaussian norm of $X$ is defined as
+      $$
+      \|X\|_{\psi_{2}}=\sup _{\theta \in S^{n-1}}\|\langle X, \theta\rangle\|_{\psi_{2}}
+      $$
+
+    \end{definition}
+
+    \paragraph{Examples.}
+
+    \begin{itemize}
+    \item Gaussian vectors
+    \item Random vectors with (independent) sub-gaussian coordinates
+    \item Uniform distribution on the sphere (next section !)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Spherical distribution}
+
+    \begin{definition}
+      If $A \in \mathcal{B}\left(S^{d-1}\right)$, we define the \emph{wedge}
+      $\Gamma(A)$ as the Borel set
+      of $\mathbb{R}^{d}$ defined by
+      $$
+      \Gamma(A)=\{r x ; r \in[0,1] \text { and } x \in A\}
+      $$
+      The \textbf{spherical measure} on the sphere is defined by,
+      $$
+      \omega_{d}(A)=d \lambda_{d}(\Gamma(A))
+      $$
+    \end{definition}
+
+    \pause
+
+    It can be shown that $\omega_d(S^{d-1}) = d\lambda_d(B^d)  = \frac{2 \pi^{d /
+        2}}{\Gamma\left(\frac{d}{2}\right)} $.
+
+    \begin{equation*}
+      \sigma_{d}(A):= \omega_d(S^{d-1})^{-1} \omega_d(A)
+    \end{equation*}
+
+    is the \textbf{uniform probability distribution on the sphere}.
+
+  \end{frame}
+
+  \begin{frame}{Polar change of variables}
+    \begin{theorem}
+      \begin{itemize}
+      \item $\sigma_{d}$ is the unique probability measure on the sphere
+        $S^{d-1}$ invariant to the action of vectorial isometries.
+
+        \pause
+        
+      \item For any measurable function $f: \Rd \to \R$ positive or integrable,
+
+        \begin{equation*}
+          \begin{aligned}
+            \int_{\R^{d}} f(x) d x &=\int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) r^{d-1} d r\right) d \textcolor{blue}{\omega_d}(\gamma) \\  &= \omega_d(S^{d-1})^{-1} \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) r^{d-1} d r\right) d \sigma_d(\gamma)
+          \end{aligned}       
+        \end{equation*}
+
+
+      \end{itemize}
+
+    \end{theorem}
+    
+  \end{frame}
+
+  \begin{frame}{Link to the Gaussian distribution}
+    \begin{prop}[Exercise 3.3.7] Let us write $X \sim N_d\left(0, I_{d}\right)$ in
+      polar  form as
+      $$
+      X=R \theta
+      $$
+      where $R=\|X\|_{2}$ is the length and $\theta=X /\|X\|_{2}$ is the direction
+      of $X$. Prove the following:
+
+      \begin{enumerate}
+      \item the length $R$ and direction $\theta$ are independent random variables
+      \item the direction $\theta$ is uniformly distributed on the unit sphere
+        $S^{d-1}$
+      \item (Bonus) the length $R$ follows a generalized gamma distribution
+      \end{enumerate}
+    \end{prop}
+    
+  \end{frame}
+
+  \begin{frame}{Gaussian concentration}
+  Recall theorem Isak, more hindsight from the exercise.
+  \end{frame}
+
+    
+
+\end{document}
