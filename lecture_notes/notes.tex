@@ -72,11 +72,11 @@ where \(K = \max_{i} \norm{X_{i}}_{\psi_{2}}\) and \(C\) is an absolute constant
 \end{theorem}
 
 \begin{proof}
-  % We first note that \(K \geq 1\). By Jensen's Inequality we have that
-  % \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
-  % and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
-  % \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
-  % \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
+  We first note that \(K \geq 1\). By Jensen's Inequality we have that
+  \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
+  and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
+  \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
+  \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
 
   Now consider the quantity \(\frac{1}{n}\norm{X}_{2}^{2} - 1\) which we can write as
   \begin{equation}

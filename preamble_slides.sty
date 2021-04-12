@@ -1,0 +1,81 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble_slides}
+
+% Text formatting
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{xcolor}
+
+% hyperreferences
+% \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+
+% Packages for figures and better typesetting, graphics and tables
+\RequirePackage{microtype}
+\RequirePackage{graphicx}
+\RequirePackage{graphbox}
+\RequirePackage{subfig}
+\RequirePackage{booktabs}
+\RequirePackage{caption}
+
+% Maths
+\RequirePackage{amsfonts}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{nicefrac}
+\RequirePackage{xcolor}
+\RequirePackage{bm}
+% \RequirePackage{tikz}
+% \RequirePackage{pgfplots}
+% \usepgfplotslibrary{polar}
+% \usepgflibrary{shapes.geometric}
+% \usetikzlibrary{calc, shapes, positioning, arrows}
+\RequirePackage{algorithm} % Algorithm environment
+\RequirePackage{algpseudocode} % Writing algorithms in pseudocode style
+\RequirePackage{thmtools}
+
+%%Theorem environments
+% Add numberwithin=section to the declaration in order to have the section number as
+% prefix to the theorem number.
+% \declaretheorem[name=Theorem,refname=Thm.]{theorem}
+% \declaretheorem[name=Lemma,sibling=theorem]{lemma}
+% \declaretheorem[name=Fact,sibling=theorem]{fact}
+% \declaretheorem[name=Proposition,refname=Prop.,sibling=theorem]{proposition}
+% \declaretheorem[name=Remark]{remark}
+% \declaretheorem[name=Corollary,refname=Cor.,sibling=theorem]{corollary}
+% \declaretheorem[name=Definition,refname=Def.]{definition}
+% \declaretheorem[name=Conjecture,sibling=theorem]{conjecture}
+% \declaretheorem[name=Axiom]{axiom}
+% \declaretheorem[name=Assumption,refname=Asm.]{assumption}
+% \declaretheorem[name=Example]{example}
+% used for AfterEndEnvironment
+% to remove the indentation after theorem environments
+% if we remove it we simply need to add \noindent after any
+% restatable environment
+\RequirePackage{etoolbox}
+\AfterEndEnvironment{restatable}{\noindent\ignorespacesafterend}
+\AfterEndEnvironment{theorem}{\noindent\ignorespacesafterend}
+\AfterEndEnvironment{remark}{\noindent\ignorespacesafterend}
+\AfterEndEnvironment{example}{\noindent\ignorespacesafterend}
+\AfterEndEnvironment{assumption}{\noindent\ignorespacesafterend}
+\AfterEndEnvironment{lemma}{\noindent\ignorespacesafterend}
+
+% Write differential operators and equations
+\RequirePackage[ISO]{diffcoeff}
+
+\RequirePackage{cleveref}
+\crefname{assumption}{Assumption}{Assumptions}
+\crefname{equation}{}{}
+\crefname{figure}{Fig.}{Fig.}
+\crefname{table}{Table}{Tables}
+\crefname{section}{Sec.}{Sec.}
+\crefname{theorem}{Thm.}{Thm.}
+\crefname{fact}{Fact}{Facts}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Cor.}{Cor.}
+\crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\crefname{algorithm}{Alg.}{Algorithms}
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{section}{Section}{Sections}

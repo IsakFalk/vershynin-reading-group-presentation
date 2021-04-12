@@ -1,71 +1,41 @@
 \documentclass{beamer}
-\usetheme{ucl}
+\usepackage{../preamble_slides}
+\usepackage{../macros}
 
-%%% Increase the height of the banner: the argument is a scale factor >=1.0
-\setbeamertemplate{banner}[ucl][1.0]
+\usetheme{metropolis}
 
-%%% Change the colour of the main banner
-%%% The background should be one of the UCL colours (except pink or white):
-%%%   black,darkpurple,darkred,darkblue,darkgreen,darkbrown,richred,midred,
-%%%   navyblue,midgreen,darkgrey,orange,brightblue,brightgreen,lightgrey,
-%%%   lightpurple,yellow,lightblue,lightgreen,stone
-% \setbeamercolor{banner}{bg=black}
-% \setbeamercolor{banner}{bg=yellow,fg=black}
-
-%%% Add a stripe behind the banner
-% \setbeamercolor{banner stripe}{bg=midred,fg=black}
-
-%%% The main structural elements
-% \setbeamercolor{structure}{fg=black}
-
-% Make alertbox more pleasant
-\setbeamercolor{bordered}{fg=black}
-
-%%% Author/Title/Date and slide number in the
-\setbeamertemplate{footline}[author title date]
-
-%%% Puts the section/subsection in the headline
-\setbeamertemplate{headline}[section]
-
-%%% Puts a navigation bar on top of the banner
-%%% For this to work correctly, the each \section command needs to be
-%%% followed by a \subsection. Requires one extra compile.
-% \setbeamertemplate{headline}[miniframes]
-%%% Accepts an optional argument determining the width
-\setbeamertemplate{headline}[miniframes][0.3\paperwidth]
-
-
-%%% Puts the frame title in the banner
-%%% Won't work correctly with the above headline templates
-% \useoutertheme{ucltitlebanner}
-%%% Similar to above, but smaller (and puts subtitle on same line as title)
-% \useoutertheme[small]{ucltitlebanner}
-
-%%% Gives block elements (theorems, examples) a border
-\useinnertheme{blockborder}
-%%% Sets the body of block elements to be clear
-\setbeamercolor{block body}{bg=white,fg=black}
-
-%%%%%% Some other settings that can make things look nicer
-%%% Set a smaller indent for description environment
-\setbeamersize{description width=2em}
 %%% Remove nav symbols (and shift any logo down to corner)
 \setbeamertemplate{navigation symbols}{\vspace{-2ex}}
 
-
-\title[]{Random Vectors in High Dimensions}
-\author[]{Isak Falk \and Dimitri Meunier}
+\title{Random Vectors in High Dimensions}
+\author{Isak Falk \and Dimitri Meunier}
+\institute{IIT}
 
 \begin{document}
+  \maketitle
+  \section{First Section}
+  \begin{frame}{Concentration of the \(L^{2}\) Norm}
+      Let \(X = (X_{1}, \dots, X_{n}) \in \R^{n}\) be a random vector with independent
+      sub-gaussian coordinates \(X_{i}\) that satisfy \(\E X_{i}^{2} = 1\). Then
+      \begin{equation}
+        \norm{\norm{X}_{2} - \sqrt{n}}_{\psi_{2}} \leq CK^{2},
+      \end{equation}
+      where \(K = \max_{i} \norm{X_{i}}_{\psi_{2}}\) and \(C\) is an absolute
+      constant.
+  \end{frame}
 
-\begin{frame}
-  \titlepage%
-\end{frame}
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    \begin{itemize}
+      \item We first note that \(K \geq 1\)\pause
+        \begin{itemize}
+          \item Since \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
+     and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
+     \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
+     \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
+        \end{itemize}
+    \end{itemize}
 
-\begin{frame}
-  \begin{section}
-    hello
-  \end{section}
-\end{frame}
+  \end{frame}
+\end{document}
 
 \end{document}
