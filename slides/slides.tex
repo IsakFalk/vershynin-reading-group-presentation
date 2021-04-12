@@ -13,7 +13,7 @@
 
 \begin{document}
   \maketitle
-  \section{First Section}
+  \section{Concentration of norm}
   \begin{frame}{Concentration of the \(L^{2}\) Norm}
       Let \(X = (X_{1}, \dots, X_{n}) \in \R^{n}\) be a random vector with independent
       sub-gaussian coordinates \(X_{i}\) that satisfy \(\E X_{i}^{2} = 1\). Then
@@ -25,17 +25,203 @@
   \end{frame}
 
   \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    Proof strategy\pause
     \begin{itemize}
-      \item We first note that \(K \geq 1\)\pause
-        \begin{itemize}
-          \item Since \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
-     and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
-     \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
-     \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
-        \end{itemize}
+      \item Show that \(\frac{1}{n}\norm{X}_{2}^{2} - 1 = \sum_{i=1}Y_{i} \)
+        where \(Y_{i} = X_{i}^{2} - 1\) are sub-exponential random variables\pause
+      \item Use Bernstein's theorem to show that \(\norm{X}_{2}^{2}\)
+        concentrates around \(\frac{1}{n}\)\pause
+      \item Show that
+        \(\abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta \Rightarrow \abs{\frac{1}{n}\norm{X}_{2}^{2} - 1} \geq \max(\delta, \delta^{2})\)\pause
+      \item Combine to show
+        \begin{equation}
+          \Pr(\abs{\norm{X}_{2} - \sqrt{n}} \geq t) \leq 2 \exp(-\frac{ct^{2}}{C^{4}K^{4}})
+        \end{equation}
     \end{itemize}
-
   \end{frame}
-\end{document}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    We first note that \(K \geq 1\)\pause
+    \begin{itemize}
+      \item By definition
+        \(\norm{X_{i}}_{\psi_{2}} = \inf\{t > 0 \: | \: \E\exp(X_{i}^{2} / t^{2}) \leq 2\}\)\pause
+      \item
+        By Jensen's inequality
+        \begin{equation}
+          \E \exp(X_{i}^{2} / t^{2}) \geq \exp(\E X_{i}^{2} / t^{2}) = \exp(t^{-2})
+        \end{equation}
+        since \(\E X_{i}^{2} = 1\) by assumption\pause
+      \item Thus \(\norm{X_{i}}_{\psi_{2}}\) satisfies
+        \(\exp(\norm{X_{i}}_{\psi_{2}}^{-2}) \leq 2\) \pause
+      \item Isolating \(\norm{X_{i}}_{}\) shows that
+        \(\norm{X_{i}}_{\psi_{2}} \geq 1 / \sqrt{\ln 2} \geq 1\)\pause
+      \item Thus \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    \begin{proposition}[Centering of sub-exponentials]
+      \label{prop:centering-of-sub-exp-rvs}
+      Let \(Z\) be a real-valued sub-exponential variable, then the centered random
+      variable \(Z - \E Z\) is sub-exponential and
+      \begin{equation}
+        \norm{Z - \E Z}_{\psi_{1}} \leq (1 + \frac{2}{\ln 2}) \norm{Z}_{\psi_{1}}.
+      \end{equation}
+    \end{proposition}
+    
+    \begin{proposition}
+      \label{prop:sub-gauss-sub-exp-norm-relation}
+      Let \(X\) be a real-values random variable and \(Y = \sqrt{\abs{X}}\). Then
+      \(X\) is sub-exponential if and only if \(Y\) is sub-Gaussian, and in such
+      case \(\norm{X}_{\psi_{1}} = \norm{Y}_{\psi_{2}}^{2}\).
+    \end{proposition}
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    Let \(Y_{i} = X_{i}^{2} - \E X_{i}^{2} = X_{i}^{2} - 1\). \pause
+    \((Y_{i})_{i}^{n}\) is a collection of
+    zero-mean, sub-exponential independent random variables. \pause By previous
+    slide
+    \begin{equation}
+      \norm{Y_{i}}_{\psi_{1}} \leq (1 + 2 / \ln 2)\norm{X_{i}^{2}}_{\psi_{1}} \leq (1 + 2 / \ln 2)\norm{X_{i}}_{\psi_{2}}^{2} \leq C K^{2},
+    \end{equation}
+    where \(C = (1 + 2 / \ln 2) \geq 1\).
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    \begin{theorem}[Bernstein]
+      \label{thm:bernsteins-ineq}
+      Let \((Z_{i})_{i=1}^{n}\) be a sequence of independent, real-valued, zero-mean
+      random variables such that \(\norm{Z_{i}}_{\psi_{1}} < \infty\). Then, for
+      every \(t > 0\)
+      \begin{equation}
+        \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}Z_{i}} > t) \leq 2\exp(-cn\min(\frac{t^{2}}{A^{2}}, \frac{t}{A})),
+      \end{equation}
+      where \(A = \max_{i}\norm{Z_{i}}_{\psi_{1}}\) and \(c > 0\) is some absolute constant.
+    \end{theorem}
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    \((Y_{i})_{i=1}^{n}\) satisfies the condition of Bernstein's theorem, \pause for any \(u > 0\),
+    \begin{equation}
+      \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}Y_{i}} > u) \leq 2 \exp(-cn\min(\frac{u^{2}}{G^{2}}, \frac{u}{G})),
+    \end{equation}
+    where \(G = \max_{i}\norm{Y_{i}}_{\psi_{1}}\). \pause
+
+    Since \(G \leq CK^{2} \leq C^{2}K^{2}\) and so \(G^{2} \leq C^{4}K^{4}\) we have
+    \begin{equation}
+      \label{eq:2}
+      \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}Y_{i}} > u) \leq 2 \exp(-(cn / C^{4}K^{4})\min(u^{2}, u)).
+    \end{equation}
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    We have shown that
+    \begin{equation}
+      \Pr(\abs*{\frac{1}{n}\norm{X}_{2}^{2} - 1} > u) \leq 2 \exp(-(cn / C^{4}K^{4})\min(u^{2}, u)).
+    \end{equation}
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    Note the following -- \pause
+    \begin{itemize}
+      \item for any \(z, \delta \geq 0\),
+      \begin{equation}
+        \label{eq:zp1-delta-observation}
+        \abs{z - 1} \geq \delta \Rightarrow \abs{z^{2} - 1} \geq \max(\delta, \delta^{2}),
+      \end{equation}
+      \pause
+      \item for any \(\delta \geq 0\),
+      \begin{equation}
+        \delta^{2} = \min(\max(\delta, \delta^{2}), \max(\delta, \delta^{2})^{2}).
+      \end{equation}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    By previous slide
+    \begin{equation}
+      \abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta \Rightarrow \abs{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta^{2}, \delta),
+    \end{equation}
+    \pause which means that
+    \begin{equation}
+      \Pr(\abs*{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta) \leq \Pr(\abs*{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta, \delta^{2})) \leq 2 \exp(-\frac{cn}{C^{4}K^{4}}\delta^{2}),
+    \end{equation}
+    where we have used that \(\delta^{2} = \min(\max(\delta, \delta^{2}), \max(\delta, \delta^{2})^{2})\).
+  \end{frame}
+
+  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+    Letting \(t = \delta \sqrt{n}\) we obtain the bound
+    \begin{equation}
+      \Pr(\abs{\norm{X}_{2} - \sqrt{n}} \geq t) \leq 2\exp(-\frac{ct^{2}}{C^{4}K^{4}}),
+    \end{equation}
+    for any \(t \geq 0\) which is equal to what we wanted to show.
+  \end{frame}
+
+% Now consider the quantity \(\frac{1}{n}\norm{X}_{2}^{2} - 1\) which we can write as
+%   \begin{equation}
+%     \frac{1}{n}\norm{X}_{2}^{2} - 1 = \frac{1}{n}\sum_{i=1}^{n}(X_{i}^{2} - 1) = \frac{1}{n}\sum_{i=1}^{n}Y_{i},
+%   \end{equation}
+%   where \(Y_{i} = X_{i}^{2} - 1\). Since \(\E X_{i}^{2} = 1\) for any \(i\),
+%   \((Y_{i})_{i=1}^{n}\) is a vector of zero-centred random variables. Since
+%   \(\norm{X_{i}}_{\psi_{2}} < \infty\) we can show that
+%   \(\norm{Y_{i}}_{\psi_{1}} < \infty\) since
+%   \begin{align}
+%     \label{al:1}
+%     \norm{X_i^2 - 1}_{\psi_1} & \leq C\norm{X_i^2}_{\psi_1} \\
+%                               & = C\norm{X_i}_{\psi_2}^2 \\
+%                               & \leq C K^2,
+%   \end{align}
+%   using centring property of sub-exponentials
+%   \cref{prop:centering-of-sub-exp-rvs} (noting that \(C > 1\)),
+%   \cref{prop:sub-gauss-sub-exp-norm-relation} and definition of \(K\). Since
+%   \((Y_{i})_{i=1}^{n}\) are independent, zero-mean and by the above calculation sub-exponential, we can apply Bernstein's Inequality
+%   \cref{thm:bernsteins-ineq} which for any \(u \geq 0\) means that
+%   \begin{equation}
+%     \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}Y_{i}} > u) \leq 2 \exp(-cn\min(\frac{u^{2}}{C^{2}K^{4}}, \frac{u}{CK^{2}}))
+%   \end{equation}
+%   for some \(c > 0\). Since \(C, K > 1\) we have that \(C^{2} > C\) and
+%   \(K^{4} > K^{2}\), so we can write
+%   \begin{equation}
+%     \label{eq:conc-norm-bernstein}
+%     \exp(-cn\min(\frac{u^{2}}{C^{2}K^{4}}, \frac{u}{CK^{2}})) \leq \exp(-\frac{cn}{C^{4}K^{4}}\min(u^{2}, u)).
+%   \end{equation}
+
+%   So far we have proved a concentration bound on \(\norm{X}_{2}^{2}\). We will
+%   finish the proof by relating \(\norm{X}_{2}\) to \(\norm{X}_{2}^{2}\). Note
+%   the following; for any \(z, \delta \geq 0\)
+%   \begin{equation}
+%     \label{eq:zp1-delta-observation}
+%     \abs{z - 1} \geq \delta \Rightarrow \abs{z^{2} - 1} \geq \max(\delta, \delta^{2}).
+%   \end{equation}
+%   We show it by first noting that
+%   \(\abs{z^{2} - 1} = \abs{z - 1}\abs{z + 1} \geq \abs{z + 1}\delta\), and see
+%   that if \(\delta \in [0, 1)\) then \(\abs{z + 1} \geq \delta\) and if
+%   \(\delta \geq 1\) then since \(\abs{z + 1} \geq 1\) we have that
+%   \(\abs{z^{2} + 1} \geq \delta\). We can write this compactly as
+%   \cref{eq:zp1-delta-observation}.
+
+%   Now, consider any \(\delta \geq 0\) and the expression
+%   \(\abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta\). Using
+%   \cref{eq:zp1-delta-observation} with \(z = \frac{1}{\sqrt{n}}\norm{X}_{2}\) we
+%   see that
+%   \begin{equation}
+%     \label{eq:4}
+%     \abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta \Rightarrow \abs{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta, \delta^{2}).
+%   \end{equation}
+%   In terms of events, this means that
+%   \begin{equation}
+%     \Pr(\abs*{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta) \leq \Pr(\abs*{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta, \delta^{2})) \leq 2 \exp(-\frac{cn}{C^{4}K^{4}}\delta^{2}),
+%   \end{equation}
+%   where in the final inequality we have used \cref{eq:conc-norm-bernstein}
+%   together with
+%   \begin{equation}
+%     \delta^{2} = \min(\max(\delta, \delta^{2}), \max(\delta, \delta^{2})^{2}).
+%   \end{equation}
+%   Letting \(t = \delta \sqrt{n}\) we obtain the bound
+%   \begin{equation}
+%     \Pr(\abs{\norm{X}_{2} - \sqrt{n}} \geq t) \leq 2\exp(-\frac{ct^{2}}{C^{4}K^{4}}),
+%   \end{equation}
+%   for any \(t \geq 0\) and this is equal to the conclusion of the theorem.
 
 \end{document}
