@@ -22,14 +22,42 @@
   case \(\norm{X}_{\psi_{1}} = \norm{Y}_{\psi_{2}}^{2}\)
 \end{proposition}
 
+\begin{proposition}
+  \label{prop:centering-of-sub-exp-rvs}
+  Let \(X\) be a real-valued sub-exponential variable, then the centered random
+  variable \(X - \E X\) is sub-exponential and
+  \begin{equation}
+    \norm{X - \E X}_{\psi_{1}} \leq (1 + \frac{2}{\ln 2}) \norm{X}_{\psi_{2}}.
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  The proof is analogous to the sub-Gaussian case but with different constant
+  since the definition of the norm is different,
+  \begin{equation}
+    \norm{X - \E X}_{\psi_{1}} \leq \norm{X}_{\psi_{1}} + \norm{\E X}_{\psi_{1}},
+  \end{equation}
+  and
+  \begin{equation}
+    \norm{\E X}_{\psi_{1}} = \frac{\abs{\E X}}{\ln 2} \leq \frac{\E \abs{X}}{\ln 2} = \frac{\norm{X}_{1}}{\ln 2} \leq \frac{2}{\ln 2}\norm{X}_{\psi_{1}},
+  \end{equation}
+  where we have used the definition of sub-exponential norm for constant
+  functions, Jensen and bound of \(L^{p}\) norm of \(X\) by sub-exponential
+  norm. We thus have that
+  \(\norm{X - \E X}_{\psi_{1}} \leq (1 + \frac{2}{\ln 2})\norm{X}_{\psi_{1}}\)
+  which is what we wanted to show.
+
+\end{proof}
+
 \begin{theorem}[Bernstein's inequality]
   \label{thm:bernsteins-ineq}
   Let \((X_{i})_{i=1}^{n}\) be a sequence of independent real-valued zero-mean
-  random variables such that \(\norm{X_{i}}_{\psi_{2}} < \infty\). Then, for
+  random variables such that \(\norm{X_{i}}_{\psi_{1}} < \infty\). Then, for
   every \(t > 0\)
   \begin{equation}
-    \Pr(\abs*{\sum_{i=1}^{n}X_{i}} > t) \leq 2\exp(-\frac{1}{2}\min(\frac{t^{2}}{\sum_{i=1}^{n}\norm{X_{i}}_{\psi_{1}}}, \frac{t}{\max_{i}\norm{X_{i}}_{\psi_{1}}})).
+    \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}X_{i}} > t) \leq 2\exp(-cn\min(\frac{t^{2}}{K^{2}}, \frac{t}{K})),
   \end{equation}
+  where \(K = \max_{i}\norm{X_{i}}_{\psi_{1}}\) and \(c > 0\) is some absolute constant.
 \end{theorem}
 
 
@@ -44,11 +72,11 @@ where \(K = \max_{i} \norm{X_{i}}_{\psi_{2}}\) and \(C\) is an absolute constant
 \end{theorem}
 
 \begin{proof}
-  We first note that \(K \geq 1\). By Jensen's Inequality we have that
-  \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
-  and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
-  \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
-  \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
+  % We first note that \(K \geq 1\). By Jensen's Inequality we have that
+  % \(\E \exp(\frac{X_{i}^{2}}{t^{2}}) \geq \exp(\frac{\E X_{i}^{2}}{t^{2}}) = \exp(t^{-2})\)
+  % and using \(t = 1\) we see that \(\E \exp(X_{i}^{2}) \geq e > 2\) so
+  % \(\norm{X_{i}}_{\psi_{2}} \geq 1\) for all \(i \in \{1, \dots, n\}\). Since
+  % \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\) we are done.
 
   Now consider the quantity \(\frac{1}{n}\norm{X}_{2}^{2} - 1\) which we can write as
   \begin{equation}
@@ -59,16 +87,195 @@ where \(K = \max_{i} \norm{X_{i}}_{\psi_{2}}\) and \(C\) is an absolute constant
   \(\norm{X_{i}}_{\psi_{2}} < \infty\) we can show that
   \(\norm{Y_{i}}_{\psi_{1}} < \infty\) since
   \begin{align}
-    \norm{X_i^2 - 1}_{\psi_1} & \leq C\norm{X_i^2}_{\psi_1} \\ 
+    \label{al:1}
+    \norm{X_i^2 - 1}_{\psi_1} & \leq C\norm{X_i^2}_{\psi_1} \\
                               & = C\norm{X_i}_{\psi_2}^2 \\
                               & \leq C K^2,
   \end{align}
-  by use of centring property of sub-exponential norm, \cref{prop:sub-gauss-sub-exp-norm-relation} and definition of \(K\). Since we showed
-  that \(Y_{i}\)'s are sub-exponential we can apply Bernstein's Inequality
-  \cref{thm:bernsteins-ineq} to see that
+  using centring property of sub-exponentials
+  \cref{prop:centering-of-sub-exp-rvs} (noting that \(C > 1\)),
+  \cref{prop:sub-gauss-sub-exp-norm-relation} and definition of \(K\). Since
+  \((Y_{i})_{i=1}^{n}\) are independent, zero-mean and by the above calculation sub-exponential, we can apply Bernstein's Inequality
+  \cref{thm:bernsteins-ineq} which for any \(u \geq 0\) means that
   \begin{equation}
-
+    \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}Y_{i}} > u) \leq 2 \exp(-cn\min(\frac{u^{2}}{C^{2}K^{4}}, \frac{u}{CK^{2}}))
   \end{equation}
+  for some \(c > 0\). Since \(C, K > 1\) we have that \(C^{2} > C\) and
+  \(K^{4} > K^{2}\), so we can write
+  \begin{equation}
+    \label{eq:conc-norm-bernstein}
+    \exp(-cn\min(\frac{u^{2}}{C^{2}K^{4}}, \frac{u}{CK^{2}})) \leq \exp(-\frac{cn}{C^{4}K^{4}}\min(u^{2}, u)).
+  \end{equation}
+
+  So far we have proved a concentration bound on \(\norm{X}_{2}^{2}\). We will
+  finish the proof by relating \(\norm{X}_{2}\) to \(\norm{X}_{2}^{2}\). Note
+  the following; for any \(z, \delta \geq 0\)
+  \begin{equation}
+    \label{eq:zp1-delta-observation}
+    \abs{z - 1} \geq \delta \Rightarrow \abs{z^{2} - 1} \geq \max(\delta, \delta^{2}).
+  \end{equation}
+  We show it by first noting that
+  \(\abs{z^{2} - 1} = \abs{z - 1}\abs{z + 1} \geq \abs{z + 1}\delta\), and see
+  that if \(\delta \in [0, 1)\) then \(\abs{z + 1} \geq \delta\) and if
+  \(\delta \geq 1\) then since \(\abs{z + 1} \geq 1\) we have that
+  \(\abs{z^{2} + 1} \geq \delta\). We can write this compactly as
+  \cref{eq:zp1-delta-observation}.
+
+  Now, consider any \(\delta \geq 0\) and the expression
+  \(\abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta\). Using
+  \cref{eq:zp1-delta-observation} with \(z = \frac{1}{\sqrt{n}}\norm{X}_{2}\) we
+  see that
+  \begin{equation}
+    \label{eq:4}
+    \abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta \Rightarrow \abs{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta, \delta^{2}).
+  \end{equation}
+  In terms of events, this means that
+  \begin{equation}
+    \Pr(\abs*{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta) \leq \Pr(\abs*{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta, \delta^{2})) \leq 2 \exp(-\frac{cn}{C^{4}K^{4}}\delta^{2}),
+  \end{equation}
+  where in the final inequality we have used \cref{eq:conc-norm-bernstein}
+  together with
+  \begin{equation}
+    \delta^{2} = \min(\max(\delta, \delta^{2}), \max(\delta, \delta^{2})^{2}).
+  \end{equation}
+  Letting \(t = \delta \sqrt{n}\) we obtain the bound
+  \begin{equation}
+    \Pr(\abs{\norm{X}_{2} - \sqrt{n}} \geq t) \leq 2\exp(-\frac{ct^{2}}{C^{4}K^{4}}),
+  \end{equation}
+  for any \(t \geq 0\) and this is equal to the conclusion of the theorem.
 \end{proof}
+
+\begin{remark}
+  The above bound tells us that with high probability, \(X\) takes values very
+  close to the sphere of radius \(\sqrt{n}\). In particular, for a fixed probability \(X\) stays
+  within a constant distance from that sphere independently of the dimension
+  \(n\). This is due to the fact that \(\norm{X}_{2}^{2}\) has mean \(n\) and
+  standard deviation \(O(\sqrt{n})\) since
+  \begin{equation}
+    \V(\norm{X}_{2}^{2}) = \sum_{i=1}\V(X_{i}^{2}) = n \V(X_{1}^{2}),
+  \end{equation}
+  due to independence of the coordinates of \(X\), and so
+  \(\sqrt{\V(\norm{X}_{2}^{2})} = \sqrt{n} \cdot \mathrm{std}(X_{1}^{2})\).
+  \(\sqrt{n \pm O(\sqrt{n})} = \sqrt{n} \pm O(1)\) since by Taylor expansion
+  around \(\sqrt{n}\) on the interval \([n - c \sqrt{n}, n + c \sqrt{n}]\) where
+  \(c\) need to be chosen so that \(n - c \sqrt{n} \geq 0\) we see that
+  \begin{align}
+    \sqrt{n \pm c\sqrt{n}} = \sqrt{n} + R_{1}(c\sqrt{n})
+  \end{align}
+  where \(R_{1}(x) = \) [ Need to fill in ].
+\end{remark}
+
+\section{Covariance, second moments, whitening and isotropy}
+\begin{definition}
+  The covariance matrix of a random vector \(X \in \R^{n}\) is
+  \begin{equation}
+    \Cov(X) = \E(X - \E X)(X - \E X)\tran = \E X X\tran - \E X (\E X)\tran.
+  \end{equation}
+\end{definition}
+
+\begin{definition}
+  The second moment matrix of a random vector \(X \in \R^{n}\) is
+  \begin{equation}
+  \Sigma = \Sigma(X) = \E X X\tran.
+  \end{equation}
+\end{definition}
+
+Note that if \(\E X = 0\), then \(\Cov(X) = \Sigma(X)\). So we can mostly
+consider the second moment matrix without loss of generality in place of the
+covariance as long as we center our variable \(X\). Both of the matrices are
+symmetric and positive semi-definite.
+
+\begin{definition}
+  A random vector \(X \in \R^{n}\) is called \emph{isotropic} if
+  \begin{equation}
+    \Sigma(X) = \E X X\tran = I.
+  \end{equation}
+\end{definition}
+
+For a random variable \(X \in \R^{n}\) with covariance matrix \(\Sigma\) and
+mean \(\mu\) we can always put it into a isotropic form by whitening
+\(Z = \Sigma^{-1/2}(X - \mu)\). Similarly, the transformation using a psd matrix
+\(\Sigma\),
+\(X = \mu + \Sigma^{1/2}Z\) of a mean-zero isotropic random vector
+\(Z \in \R^{n}\) leads to a random vector with mean \(\mu\) and covariance
+\(\Sigma\). This observation means that in many cases we may focus on random
+isotropic mean-zero random vectors without loss of generality.
+
+\begin{lemma}
+  \label{lem:isotropy-marginal-characterisation}
+  A random vector \(X \in \R^{n}\) is isotropic if and only if
+  \begin{equation}
+    \E \scal{X}{u} = \norm{u}^{2}
+  \end{equation}
+  for all \(u \in \R^{n}\). Equivalently we could have used
+  \begin{equation}
+    \E \scal{X}{u} = 1
+  \end{equation}
+  for all \(u \in S^{n-1}\), the \(n\)-dimensional unit sphere.
+\end{lemma}
+
+\begin{proof}
+  Two symmetric matrices \(A, B\) are equal if and only if
+  \(x\tran A x = x\tran B\) for any \(x \in \R^{n}\). Thus \(X\) is isotropic if
+  and only if
+  \begin{equation}
+    u\tran \E X X\tran u = \E \scal{X}{u} = u\tran I u = \norm{u}_{2}^{2}
+  \end{equation}
+  for all \(u \in \R^{n}\) which is what we wanted to show.
+\end{proof}
+
+\begin{lemma}
+  Let \(X\) be an isotropic random vector in \(\R^{n}\). The
+  \begin{equation}
+    \E \norm{X}^{2}_{2} = n.
+  \end{equation}
+  Moreover, if \(X, Y\) are two independent isotropic random vectors in
+  \(\R^{n}\), then
+  \begin{equation}
+    \E\scal{X}{Y}^{2} = n
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  First we have
+  \begin{align}
+    \E\norm{X}_{2}^{2} & = \E X\tran X \\
+                       & = \E \Tr(X X\tran) \\
+                       & = \Tr(\E X X\tran) \\
+                       & = \Tr(I) \\
+                       & = n.
+  \end{align}
+  For the second part we use the so called \emph{law of total expectation} to
+  write
+  \begin{equation}
+    \E \scal{X}{Y} = \E_{X} \E_{Y}(\scal{x}{Y} | X = x) = \E_{X} \norm{X}_{2}^{2} = n
+  \end{equation}
+  by the \cref{lem:isotropy-marginal-characterisation} and reusing the first
+  part of the proof.
+\end{proof}
+
+\begin{corollary}
+  Let \(X, Y\) be independent mean-zero isotropic random vectors in \(R^{n}\),
+  then
+  \begin{equation}
+    \E \norm{X - Y}_{2}^{2} = 2n
+  \end{equation}
+\end{corollary}
+
+\begin{proof}
+  \begin{align}
+    \E \norm{X - Y}_{2}^{2} & = \E \norm{X}_{2}^{2} + \E \norm{Y}_{2}^{2} - 2 \E \scal{X}{Y} \\
+                            & = 2n - 0 \\
+                            & = 2n
+  \end{align}
+\end{proof}
+
+\section{Examples of high-dimensional distributions}
+Let \(X \sim \Unif(\sqrt{n} S^{n-1})\) mean that the law of \(X\) is the uniform
+measure on the zero-centered sphere of radius \(\sqrt{n}\) in \(n\) dimensions.
+
+\begin{theorem}[Isotropy of uniform random variable on \(\sqrt{n} S^{n-1}\)]
+
+\end{theorem}
 
 \end{document}
