@@ -9,13 +9,6 @@
 \begin{document}
 \maketitle
 
-\begin{itemize}
-\item Theorem 3.1.1: Concentration of the norm + deviation interpretation
-\item Definition of two first moments for vectors
-\item Isotropy and characterisation of isotropy
-\item Exercise 3.3.1: the spherically distributed random variable is isotropic
-\end{itemize}
-
 \section{Random Vectors}
 
 Let $(\Omega,\cA,\P)$ be a probability space and $(E,\cE)$ a measurable space.
@@ -62,6 +55,17 @@ of the characteric function.
   \Phi_{X}\left(\xi_{1}, \ldots, \xi_{d}\right)=\prod_{i=1}^{d} \Phi_{X_{i}}\left(\xi_{i}\right)
   $$
 \end{prop}
+
+\begin{prop} \label{prop:charac}
+  If $X$ is a real random vector with finite second moments, then its
+  characteristic function is $C^2$ and,
+
+  \begin{equation*}
+    \Phi_{X}(\xi)=1 + i \E(X) \cdot \xi-\frac{1}{2} \xi^T \E\left(XX^T\right) \xi+o\left(\|\xi\|^{2}\right)
+  \end{equation*}
+  
+\end{prop}
+
 
 \subsection{Gaussian vectors}
 
@@ -115,7 +119,7 @@ Secondly, if $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
 
 \begin{theorem} A random vector $X: \Omega \rightarrow \mathbb{R}^{d}$ is
   Gaussian if and only if, there exists a vector $\mu \in \mathbb{R}^{d}$ and a
-  symmetric matrice $K \in \R^{d \times d}$ such that, 
+  positive semi-definite matrice $K \in \R^{d \times d}$ such that, 
   
   \begin{equation} \label{eq:th}
     \Phi_{X}(\xi)=\exp \left(i \mu \cdot \xi-\frac{1}{2} \xi^t K \xi\right),
@@ -137,14 +141,37 @@ Secondly, if $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
   = e^{i\theta^t\mu - \theta^TK\theta/2}.$$
 
   For the converse, assume that $X$ is a random variable with a characteristic
-  function as (\ref{eq:th}). Then for all $\theta \in \Rd$ and $\xi \in R$,
+  function as (\ref{eq:th}) with $\mu \in \Rd$ and $K \in \R^{d\times d}_+$. Then
+  for all $\theta \in \Rd$ and $\xi \in R$,
   $$\Phi_{\langle X,\theta \rangle}(\xi) = \Phi_X(\xi \theta)
   = e^{i \xi \mu^T\theta - \xi^2 \theta^TK\theta/2}.$$
-
   We recognise the characteristic function of a univariate Gaussian
-  distribution. We conclude by injectivity of $\Phi$.
+  distribution, which implies that $\langle X,\theta \rangle$ follows a
+  univariate distribution. It remains to prove that $\mu=\E[X]$ and
+  $K=\E[(X-\E[X])(X-\E[X])^T]$. Since $X$ is a Gaussian vector, we have seen that it
+  is squared integrable, thus, we can apply Proposition \ref{prop:charac},
 
-  \textcolor{blue}{+ Show $\mu=\E[X]$ and $K=\E[(X-\mu)(X-\mu)^T]$ (FURTHERMORE)}
+  \begin{equation*}
+    \Phi_{X}(\xi)=1 + i \E(X) \cdot \xi-\frac{1}{2} \xi^T \E\left(XX^T\right) \xi+o\left(\|\xi\|^{2}\right)
+  \end{equation*}
+
+  Hence,
+
+  \begin{equation*}
+    \begin{aligned}
+      \ln \Phi_{X}(\xi) &= i \E(X)^T \xi-\frac{1}{2} \xi^T \E\left(XX^T\right) \xi +\frac{1}{2}\left(\E(X)^T \xi\right)^{2}+o\left(\|\xi\|^{2}\right) \\
+      &= i \E(X)^T \xi-\frac{1}{2} \xi^T\left(\E\left(XX^T\right)-\E(X)\E(X)^T\right) \xi+o\left(\|\xi\|^{2}\right) \\
+      &= i \E(X)^T \xi-\frac{1}{2} \xi^T\E\left((X-\E[X])(X-\E[X])^T\right) \xi+o\left(\|\xi\|^{2}\right)
+    \end{aligned}
+  \end{equation*}
+
+  On the other hand, by assumption,
+
+  \begin{equation*}
+    \ln \Phi_{X}(\xi) = i \mu^T \xi-\frac{1}{2} \xi^t K \xi\right),
+  \end{equation*}
+
+  and we conclude by identification. 
 \end{proof}
 
 The theorem shows that a Gaussian vector is fully characterised by its two first
@@ -324,8 +351,7 @@ $$ g(r,\theta) = f_{\gamma}(r) \times \frac{\Gamma(d/2)2^{d/2}}{2(2\pi)^{d/2}} =
 
 \subsection{Gaussian concentration}
 
-Applying theorem 1 (Isak) to, $X \sim \cN_d(0,I_d)$ we get, CONSTANTS (depends
-on $d$ ??)
+Applying the concentration restult for an isotropic random vector, to $X \sim \cN_d(0,I_d)$ we get,
 
 \begin{equation}
   \mathbb{P}\left\{\left|\|X\|_{2}-\sqrt{d}\right| \geq t\right\} \leq 2 \exp \left(-c t^{2}\right) \quad \text { for all } t \geq 0

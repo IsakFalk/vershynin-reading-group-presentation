@@ -14,7 +14,7 @@
 \begin{document}
   \maketitle
   \section{Concentration of norm}
-  \begin{frame}{Concentration of the \(L^{2}\) Norm}
+  \begin{frame}{Concentration of the \(\ell^{2}\) Norm}
       Let \(X = (X_{1}, \dots, X_{n}) \in \R^{n}\) be a random vector with independent
       sub-gaussian coordinates \(X_{i}\) that satisfy \(\E X_{i}^{2} = 1\). Then
       \begin{equation}
@@ -24,13 +24,13 @@
       constant.
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     Proof strategy\pause
     \begin{itemize}
       \item Show that \(\frac{1}{n}\norm{X}_{2}^{2} - 1 = \sum_{i=1}Y_{i} \)
         where \(Y_{i} = X_{i}^{2} - 1\) are sub-exponential random variables\pause
       \item Use Bernstein's theorem to show that \(\norm{X}_{2}^{2}\)
-        concentrates around \(\frac{1}{n}\)\pause
+        concentrates around \(n\)\pause
       \item Show that
         \(\abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta \Rightarrow \abs{\frac{1}{n}\norm{X}_{2}^{2} - 1} \geq \max(\delta, \delta^{2})\)\pause
       \item Combine to show
@@ -40,7 +40,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     We first note that \(K \geq 1\)\pause
     \begin{itemize}
       \item By definition
@@ -53,13 +53,13 @@
         since \(\E X_{i}^{2} = 1\) by assumption\pause
       \item Thus \(\norm{X_{i}}_{\psi_{2}}\) satisfies
         \(\exp(\norm{X_{i}}_{\psi_{2}}^{-2}) \leq 2\) \pause
-      \item Isolating \(\norm{X_{i}}_{}\) shows that
+      \item Isolating \(\norm{X_{i}}_{\psi_2}\) shows that
         \(\norm{X_{i}}_{\psi_{2}} \geq 1 / \sqrt{\ln 2} \geq 1\)\pause
       \item Thus \(K = \max_{i}\norm{X_{i}}_{\psi_{2}} \geq 1\)
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     \begin{proposition}[Centering of sub-exponentials]
       \label{prop:centering-of-sub-exp-rvs}
       Let \(Z\) be a real-valued sub-exponential variable, then the centered random
@@ -77,18 +77,18 @@
     \end{proposition}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     Let \(Y_{i} = X_{i}^{2} - \E X_{i}^{2} = X_{i}^{2} - 1\). \pause
     \((Y_{i})_{i}^{n}\) is a collection of
     zero-mean, sub-exponential independent random variables. \pause By previous
     slide
     \begin{equation}
-      \norm{Y_{i}}_{\psi_{1}} \leq (1 + 2 / \ln 2)\norm{X_{i}^{2}}_{\psi_{1}} \leq (1 + 2 / \ln 2)\norm{X_{i}}_{\psi_{2}}^{2} \leq C K^{2},
+      \norm{Y_{i}}_{\psi_{1}} \leq (1 + 2 / \ln 2)\norm{X_{i}^{2}}_{\psi_{1}} = (1 + 2 / \ln 2)\norm{X_{i}}_{\psi_{2}}^{2} \leq C K^{2},
     \end{equation}
     where \(C = (1 + 2 / \ln 2) \geq 1\).
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     \begin{theorem}[Bernstein]
       \label{thm:bernsteins-ineq}
       Let \((Z_{i})_{i=1}^{n}\) be a sequence of independent, real-valued, zero-mean
@@ -101,7 +101,7 @@
     \end{theorem}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     \((Y_{i})_{i=1}^{n}\) satisfies the condition of Bernstein's theorem, \pause for any \(u > 0\),
     \begin{equation}
       \Pr(\abs*{\frac{1}{n}\sum_{i=1}^{n}Y_{i}} > u) \leq 2 \exp(-cn\min(\frac{u^{2}}{G^{2}}, \frac{u}{G})),
@@ -115,14 +115,14 @@
     \end{equation}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     We have shown that
     \begin{equation}
       \Pr(\abs*{\frac{1}{n}\norm{X}_{2}^{2} - 1} > u) \leq 2 \exp(-(cn / C^{4}K^{4})\min(u^{2}, u)).
     \end{equation}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     Note the following -- \pause
     \begin{itemize}
       \item for any \(z, \delta \geq 0\),
@@ -138,7 +138,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     By previous slide
     \begin{equation}
       \abs{\frac{1}{\sqrt{n}}\norm{X}_{2} - 1} \geq \delta \Rightarrow \abs{\frac{1}{n}\norm{X}^{2}_{2} - 1} \geq \max(\delta^{2}, \delta),
@@ -150,7 +150,7 @@
     where we have used that \(\delta^{2} = \min(\max(\delta, \delta^{2}), \max(\delta, \delta^{2})^{2})\).
   \end{frame}
 
-  \begin{frame}{Proof (Concentration of the \(L^{2}\) Norm)}
+  \begin{frame}{Proof (Concentration of the \(\ell^{2}\) Norm)}
     Letting \(t = \delta \sqrt{n}\) we obtain the bound
     \begin{equation}
       \Pr(\abs{\norm{X}_{2} - \sqrt{n}} \geq t) \leq 2\exp(-\frac{ct^{2}}{C^{4}K^{4}}),
@@ -159,6 +159,41 @@
   \end{frame}
 
   \section{(Sub-)Gaussian Distributions}
+
+  \begin{frame}
+    \frametitle{Random Vectors}
+
+    A real random vector is a measurable function $X:(\Omega,\cA) \to
+    (\Rd,\cB(\Rd))$. We recall that the first moments are,
+
+    \begin{itemize}
+    \item $\E[X] = (\E[X_1], \ldots, \E[X_d])^T \in \Rd$
+      \pause
+      
+    \item $\V[X] = \E[(X-\E[X])(X-\E[X])^T] =  \E[XX^T] \E[X]\E[X]^T$
+      \pause
+    \item $\V[X]_{ii} = \V[X_i]$
+    \item $\V[X]_{ij} = Cov(X_i,X_j)$        
+    \end{itemize}
+
+    \pause
+
+    \textbf{Isotropy:}  $\E[XX^T] = I_d$
+
+    \pause
+
+    Equivalently,   
+
+    \begin{itemize}
+    \item $\E[\langle X,\theta \rangle^2] = \|\theta\|_2^2$ for all $\theta \in
+      \Rd$
+    \item $\E[\langle X,\theta \rangle^2] = 1$ for all $\theta \in S^{d-1}$
+    \end{itemize}
+
+    \textbf{Proof} If $A$ and $B$ are symmetric, $A=B$ if and only if
+    $\theta^TA\theta = \theta^TB\theta$ for all $\theta \in \Rd$.
+
+  \end{frame}
 
   \begin{frame}{Characteristic function}
 
@@ -177,7 +212,7 @@
     \begin{theorem}
       The characteristic function of a real random vector $X$ characterised its
       distribution: $\Phi_X = \Phi_Y \implies \P_X = \P_Y$.
-    \end{theorem}kk
+    \end{theorem}
 
     \pause
 
@@ -221,7 +256,7 @@
     \pause
 
     \begin{theorem} $X$ is a Gaussian vector if and only if, there exists a
-      vector $\mu \in \mathbb{R}^{d}$ and a symmetric matrix $K \in \R^{d \times d}$ such that,
+      vector $\mu \in \mathbb{R}^{d}$ and a positive semi-definite matrix $K \in \R^{d \times d}$ such that,
 
       \begin{equation}
         \Phi_{X}(\xi)=\exp \left(i \mu \cdot \xi-\frac{1}{2} \xi^t K \xi\right),
@@ -235,7 +270,7 @@
     \textcolor{red}{PROOF}.
   \end{frame}
 
-  \begin{frame}{Gaussian vectors - properties}
+  \begin{frame}{Gaussian vectors -- properties}
 
     \begin{corollary}
       \begin{itemize}
@@ -284,20 +319,50 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}
+    \frametitle{Gaussian vectors -- density}
+
+    \begin{proposition}
+      Let $X \sim \cN(\mu,K)$, then $X =
+      K^{1/2}Z + \mu$, where $Z \sim \cN_d(0,I_d)$ and the equality holds in
+      distribution. 
+    \end{proposition}
+
+    \pause
+
+    \begin{corollary}
+      
+      If $X \sim \cN(\mu,K)$, $X$ admits a density if and only if $K$ is
+      invertible and in that case, its density function is,
+      $$f(x)=|2 \pi K|^{-\frac{1}{2}} e^{-\frac{1}{2}\|x - \mu\|_{K^{-1}}^{2}}$$
+    \end{corollary}
+  \end{frame}
+
   \begin{frame}{Spherical distribution}
 
-    \begin{definition}
-      If $A \in \mathcal{B}\left(S^{d-1}\right)$, we define the \emph{wedge}
-      $\Gamma(A)$ as the Borel set
-      of $\mathbb{R}^{d}$ defined by
-      $$
-      \Gamma(A)=\{r x ; r \in[0,1] \text { and } x \in A\}
-      $$
-      The \textbf{spherical measure} on the sphere is defined by,
-      $$
-      \omega_{d}(A)=d \lambda_{d}(\Gamma(A))
-      $$
-    \end{definition}
+    \begin{columns}
+      \begin{column}{0.75\textwidth}
+
+        \begin{definition}
+          If $A \in \mathcal{B}\left(S^{d-1}\right)$, we define the \emph{wedge}
+          $\Gamma(A)$ as the Borel set
+          of $\mathbb{R}^{d}$ defined by
+          $$
+          \Gamma(A)=\{r x ; r \in[0,1] \text { and } x \in A\}
+          $$
+          The \textbf{spherical measure} on the sphere is defined by,
+          $$
+          \omega_{d}(A)=d \lambda_{d}(\Gamma(A))
+          $$
+        \end{definition}
+      \end{column}
+      \pause
+      \begin{column}{0.25\textwidth}  %%<--- here
+        \begin{center}
+          \includegraphics[width=1\textwidth]{wedge.png}
+        \end{center}
+      \end{column}
+    \end{columns}
 
     \pause
 
