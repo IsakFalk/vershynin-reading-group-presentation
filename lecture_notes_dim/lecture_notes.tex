@@ -2,12 +2,36 @@
 \usepackage{preamble}
 \newcommand{\mc}[1]{\mathcal{#1}}
 
-\title{Isotropy, Gaussian vectors, spherical measure and concentration}
+\title{Gaussian vectors and spherical measure}
 \author{Dimitri Meunier}
 \date{20/04/2021}
 
 \begin{document}
 \maketitle
+
+% \textcolor{red}{Not done,
+%   \begin{itemize}
+%   \item orthogonality in high-dimension
+%   \item Haar measure
+%   \item counter-example of vector with non independant sub-gaussian
+%       coordinates
+%   \end{itemize}
+% }
+
+% \textcolor{blue}{Not treated,
+%   \begin{itemize}
+%   \item Isotropy, exercise on the sphere, orthogonal vectors in high dimension
+%   \item Volume of the unit ball in $\Rd$
+%   \item Proof of the injectivity of the Fourier transform
+%   \item Proof ot the polar change of variable
+%   \item uniform distribution on the sphere is sub-gaussian, projective central
+%       limit theorem  
+%   \end{itemize}
+% }
+
+In those notes the theoretical sections on the characteristic function, the
+gaussian vectors and the uniform measure on the sphere  make intensive use of
+the lecture notes \citet{le2006integration} (in French!).
 
 \section{Random Vectors}
 
@@ -24,37 +48,138 @@ $i=1,\ldots,d$ its coordinates, they are real random variables with distribution
 $\P_{X_i} = \pi^i_{\#}\P_X$ where $\pi^i$ is the projection along axis $i$ and
 $\#$ denotes the push-forward operator.
 
-The Lebesgue measure on $(\Rd,\cB(\Rd))$ is denoted $\lambda_d$.
+The Lebesgue measure on $(\Rd,\cB(\Rd))$ is denoted $\lambda_d$, the unit sphere is $S^{d-1} = \{x \mid \|x\|=1\}$ and the
+unit ball $B^d = \{x \mid \|x\| \leq 1\}$. The set of vectorial isometries on
+$\Rd$ is $\{\phi:\Rd \to \Rd \text{ linear } \mid \|\phi(x)\|=\|x\| \quad \forall x
+\in \Rd \}$. The set of associated matrices is the orthogonal group $\mathcal{O}(d) = \{A
+\in \R^{d \times d} | A^TA = I_d\}$. For a random vector $X$ in $\Rd$, we recall the following,
+
+\begin{itemize}
+\item $\E[X] = (\E[X_1], \ldots, \E[X_d])^T \in \Rd$
+\item $\mathbb{V}[X] = \E[(X-\E[X])(X-\E[X])^T] =  \E[XX^T] -  \E[X]\E[X]^T \in
+  \R^{d \times d}$. $\mathbb{V}[X]_{ij} = Cov(X_i,X_j), \quad  i,j=1,\ldots,d$             
+  % \item $\mathbb{V}[X]_{ii} = \mathbb{V}[X_i], i=1,\ldots,d$
+\end{itemize}
 
 \subsection{Characteristic function}
 
-In order to introduce Gaussian random vectors we first recall useful properties
-of the characteric function.
+The proof of the characterisation of Gaussian random vectors requires to introduce the
+characteristic function of a real random vector. We start by recalling the dominated
+convergence theorem and a corollary for continuity and differentiability of
+parametric integrals. We then define the characteristic function and state
+useful properties, before introducing Gaussian random vectors in the
+next section.
+
+\begin{theorem}[Dominated convergence theorem]
+  Let $\left(f_{n}\right)$ be a sequence of functions in  $\mathcal{L}^{1}(E,
+  \mathcal{E}, \mu)$ (respectively in  $\left.\mathcal{L}_{\mathbb{C}}^{1}(E,
+    \mathcal{E}, \mu)\right) .$ We assume that,
+
+  \begin{enumerate}
+  \item there is a measurable function $f:E \to \mathbb{R}$ (respectively in  $\mathbb{C}$) such that,
+
+    $$
+    f_{n}(x) \longrightarrow f(x) \quad \mu \text{-a.e, }
+    $$
+  \item there is a measurable function $g: E \longrightarrow \mathbb{R}_{+}$
+    such that $\int g d \mu<\infty$ and for all $n$,
+    $$
+    \left|f_{n}\right| \leq g \quad \mu\text{-a.e, }
+    $$
+  \end{enumerate}
+
+  then $f \in \mathcal{L}^{1}(E, \mathcal{E}, \mu)$ (resp. $f
+    \in \mathcal{L}_{\mathbb{C}}^{1}(E, \mathcal{E}, \mu))$, and we have
+  $$
+  \lim _{n \rightarrow \infty} \int |f_{n}-f| d \mu=0.
+  $$
+\end{theorem}
+
+\begin{theorem}[Continuity and derivality of a parametric integral] \label{th:contparamint}
+ Let $(U, d)$ be a metric space and $f: U \times E \longrightarrow \mathbb{R}$ (or $\mathbb{C}$). Let $u_{0} \in E$. We assume that,
+
+ \begin{enumerate}
+ \item for all $u \in U$,  $x \longrightarrow f(u, x)$ is measurable,
+ \item $\mu(dx)$-a.e $u \longrightarrow f(u, x)$ is continuous in $u_{0}$,
+ \item there is a function $g \in \mathcal{L}^{1}(E, \mathcal{E}, \mu)$ such
+   that for all $u \in U$,
+   $$
+   |f(u, x)| \leq g(x) \quad \mu(d x) \text{-a.e,}
+   $$
+ \end{enumerate}
+then, $F(u)=\int_E f(u, x) \mu(d x)$ is well-defined for all $u \in U$ and
+continuous in $u_{0}$. Suppose now that $U=I$ is an open interval of
+$\mathbb{R}$. We assume that,
+
+\begin{enumerate}
+\item for all $u \in I$, $x \longrightarrow f(u, x)$ is in  $\mathcal{L}^{1}(E, \mathcal{E}, \mu)$,
+\item $\mu(dx)$-a.e. $u \longrightarrow f(u, x)$ is differentiable on $I$,
+\item there is a function $g \in \mathcal{L}_{+}^{1}(E, \mathcal{E}, \mu)$ such that $\mu(dx)$-a.e,
+  $$
+  \forall u \in I, \quad \left|\frac{\partial f}{\partial u}(u, x)\right| \leq g(x),
+  $$
+\end{enumerate}
+
+then $F$ is differentiable on $I$, with
+$$
+F^{\prime}\left(u_{0}\right)=\int \frac{\partial f}{\partial u}\left(u_{0}, x\right) \mu(d x)
+$$
+
+\end{theorem}
 
 \begin{definition}[Characteristic function]
-  if $X$ is a real random vector, the characteristic function of $X$ is the function
+  If $X$ is a real random vector, the characteristic function of $X$ is the function
   $\Phi_{X}: \mathbb{R}^{d} \longrightarrow \mathbb{C}$ defined by 
   $$
-  \Phi_{X}(\xi)=E[\exp (i \xi \cdot X)] = \int e^{i \xi \cdot x} \P_{X}(d x), \quad \xi \in \mathbb{R}^{d}
+  \Phi_{X}(\xi)=\E[e^{i \langle \xi,X \rangle}] = \int_{\Rd} e^{i\langle \xi,X \rangle} \P_{X}(d x), \quad \xi \in \mathbb{R}^{d}
   $$
 
-  $\Phi_{X}$ is the Fourier transform of the distribution on $X$. The dominated
-  convergence theorem shows that $\Phi_{X}$ is continuous (and bounded) on $\mathbb{R}^{d}$.
+  $\Phi_{X}$ is the Fourier transform of the distribution $P_X$.
 \end{definition}
 
-\begin{theorem}
+\paragraph{Remark.} The characteristic function is defined as a parametric integral, and
+Theorem \ref{th:contparamint} shows that $\Phi_{X}$ is continuous (and bounded)
+on $\mathbb{R}^{d}$. Indeed, $|e^{i \xi \cdot x}| \leq 1 \in  \mathcal{L}^{1}(\Rd, \cB(\Rd), \P_X).$
+
+\begin{theorem} \label{th:injFourier}
   The characteristic function of a real random vector $X$ characterised its
-  distribution. In other words, the Fourier transform defined on the sapce of
+  distribution. In other words, the Fourier transform defined on the space of
   probability measures on $\Rd$ is injective. 
 \end{theorem}
 
-\begin{prop}
+\begin{corollary}[Marginal distributions]
+  Two real random vectors $X$ and $Y$ have the same distribution if and only if
+  they have the same marginal distributions, i.e. $\P_X = \P_Y$ if and
+  only if for all $\theta \in S^{d-1}$, $\P_{\langle X,\theta \rangle} = \P_{\langle Y,\theta \rangle}$.
+\end{corollary}
+
+\begin{proof}
+
+  First assume that for all $\theta \in S^{d-1}$, $\P_{\langle X,\theta \rangle}
+  = \P_{\langle Y,\theta \rangle}$, by injectivity of the Fourier transform on $\R$,  $\Phi_{\langle X,\theta \rangle} = \Phi_{\langle
+    Y,\theta \rangle}$. For all $\xi \in \Rd$ we can find $t \in \R$ and $\theta
+  \in S^{d-1}$ such that $\xi = t \theta$ (take $t = \|\xi\|$ and $\theta =
+  \xi/\|\xi\|$), then, $$\Phi_X(\xi) = \Phi_X(t\theta) = \Phi_{\langle X,\theta
+    \rangle}(t) =  \Phi_{\langle Y,\theta
+    \rangle}(t) =  \Phi_Y(t\theta) = \Phi_Y(\xi).$$
+
+  By injectivity of the Fourier transform we conclude that $\P_X = \P_Y$. The
+  other direction is proved similarly. 
+\end{proof}
+
+\begin{corollary}[Independence] \label{cor:independence}
   If $X$ is a real random vector on $\Rd$, its coordinates are independant if and only if
-  the characteristic function of $X$ is
+  the characteristic function of $X$ factorized as, 
   $$
   \Phi_{X}\left(\xi_{1}, \ldots, \xi_{d}\right)=\prod_{i=1}^{d} \Phi_{X_{i}}\left(\xi_{i}\right)
   $$
-\end{prop}
+\end{corollary}
+
+\begin{proof}
+  It follows from the injectivity of the Fourier transform (Theorem
+  \ref{th:injFourier}) and the fact that the coordinates are independent if and
+  only if $\P_X = \P_{X_1}\otimes \ldots \otimes \P_{X_d}$.
+\end{proof}
 
 \begin{prop} \label{prop:charac}
   If $X$ is a real random vector with finite second moments, then its
@@ -66,68 +191,101 @@ of the characteric function.
   
 \end{prop}
 
+\begin{proof}
+  It follows from Theorem \ref{th:contparamint} and an order 2 Taylor expansion. 
+\end{proof}
 
 \subsection{Gaussian vectors}
 
-We first recall the density and the characteristic function of a univariate
-Gaussian distribution.
+We are now ready to introduce the formal definition of a Gaussian random vector.
+We first recall the density and characteristic function of a univariate Gaussian distribution.
 
 \begin{definition} The standard normal (or Gaussian) distribution on $\R$ is the
   absolutely continuous measure (w.r.t to $\lambda_1$) with density, $$f(x)=(2
   \pi)^{-\frac{1}{2}} e^{-\frac{1}{2}x^{2}}.$$
   A random variable that follows this distribution is denoted $X \sim
   \cN_1(0,1)$. We say that $X \sim \cN_1(\mu,\sigma^2)$ if $X = \mu + \sigma Z$
-  ($\sigma \geq 0$) where  $Z \sim \cN_1(0,1)$. If $\sigma >0$, the change of variable formula
-  shows that, the density function of $X$ is then, $$f(x)=(2
-  \pi\sigma^2)^{-\frac{1}{2}} e^{-\frac{1}{2\sigma^2}x^{2}}.$$
+  ($\mu \in \R$, $\sigma \geq 0$) where  $Z \sim \cN_1(0,1)$. If $\sigma >0$,
+  the change of variable formula shows that the density function of $X$ is $$f(x)=(2
+  \pi\sigma^2)^{-\frac{1}{2}} e^{-\frac{x^2}{2\sigma^2}}.$$ If $\sigma = 0$, $\P_X = \delta_{\mu}.$
 \end{definition}
 
-\begin{prop} If $X \sim \cN_1(\mu,\sigma^2)$, then, 
+\begin{prop} \label{prop:uni_charac_gaussian} If $X \sim \cN_1(\mu,\sigma^2)$,
   $$
   \Phi_{X}(\xi)=\exp \left(i\xi \mu -\frac{\sigma^{2} \xi^{2}}{2}\right), \quad \xi \in \mathbb{R}
   $$
 \end{prop}
 
-We are now ready to introduce the definition of a Gaussian random vector. 
+\begin{proof}
+  It is sufficient to show that if  $X \sim \cN_1(0,1)$,
+  $$
+  \Phi_{X}(\xi)=e^{-\frac{\xi^{2}}{2}}, \quad \xi \in \mathbb{R}
+  $$
+
+  Since the sinus function is odd, we have, 
+
+  \begin{equation*}
+    \Phi_{X}(\xi)= \int_{\mathbb{R}} \frac{1}{\sqrt{2 \pi}} e^{-x^{2} /2} e^{i \xi x} d x = \int_{\mathbb{R}} \frac{1}{\sqrt{2 \pi}} e^{-x^{2} /2} \cos(\xi x) d x
+  \end{equation*}
+
+Then, since $| x e^{-x^{2} / 2} \sin (\xi x)| \leq |x| e^{-x^{2} / 2} \in \mathcal{L}^{1}(\R, \cB(\R), \lambda_1),$ by Theorem \ref{th:contparamint}
+  and integration by parts,
+
+  \begin{equation*}
+    \Phi_X^{\prime}(\xi)=-\int_{\mathbb{R}} \frac{1}{\sqrt{2 \pi}} x e^{-x^{2} / 2} \sin (\xi x) d x = -\int_{\mathbb{R}} \frac{1}{\sqrt{2 \pi}} e^{-x^{2} / 2} \xi \cos (\xi x) d x=-\xi \Phi_X(\xi).
+  \end{equation*}
+
+  $\Phi_X$ is therefore solution of the differential equation
+  $f^{\prime}(\xi)=-\xi f(\xi)$, with initial condition $f(0)=1$. We conclude
+  that $\Phi_X(\xi)=\exp \left(-\xi^{2} / 2\right)$.
+\end{proof}
 
 \begin{definition}
   Let $X:(\Omega,\cA,\P) \to \Rd$ be a real random vector. $X$ is a \textbf{Gaussian
     vector} if for all $\theta \in \Rd$, $\langle X, \theta \rangle$ has a
   univariate normal distribution.
 \end{definition}
-From this definition we see that if $X$ is a vector of independent univariate
-Gaussian variables, $X$ is a Gaussian vector. Indeed, for all $\theta \in \Rd$
-and $\xi \in \R$, 
-$$
-\begin{aligned}
-  \Phi_{<\theta, X>}(\xi ) &=E\left\{e^{i \xi \sum_{l=1}^{d} \theta_{l} X_{l}}\right\} \\
-  &=\prod_{l=1}^{d} E\left\{e^{i \xi \theta_{l} X_{l}}\right\} \\
-  &=\prod_{l=1}^{d} e^{\left(i \xi \theta_{l} \mu_{l}-\frac{1}{2} \xi^{2} \theta_{l}^{2}
-      \sigma_{l}^{2}\right)} \qquad \text { if } X_{l} \sim
-  \cN_{1}\left(\mu_{l}, \sigma_{l}^2 \right) \\
-  &=e^{i \xi \sum_{l=1}^{d} \theta_{l} \mu_{l}-\frac{1}{2} \xi^{2} \sum_{l=1}^{d} \theta_{l}^{2} \sigma_{l}^{2}}
-\end{aligned}
-$$
-Hence, by injectivity of the characteristic function,
-$$
-<\theta, X>\sim \cN_{1}\left(\sum_{l=1}^d \theta_{l} \mu_{l}, \sum_{l=1}^d \theta_{l}^{2} \sigma_{l}^{2}\right)
-$$
-Secondly, if $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
-\in \R^r$, $Y = BX + b$ is also a Gaussian vector. Indeed for all $\theta \in
-\R^r$, $\langle Y,\theta \rangle = \langle X,B^T\theta \rangle + \langle
-\theta,b \rangle$ follows a univariate normal distribution.
+
+\paragraph{Remarks.}
+
+\begin{itemize}
+\item It is equivalent to assume that the marginal normality holds for all
+  $\theta \in S^{d-1}$.
+\item From the definition we see that if $X$ is a vector of independent univariate
+  Gaussian variables, $X$ is a Gaussian vector. Indeed, for all $\theta \in \Rd$
+  and $\xi \in \R$, 
+  $$
+  \begin{aligned}
+    \Phi_{\langle \theta,X \rangle}(\xi ) &=\E\left\{e^{i \xi \sum_{l=1}^{d} \theta_{l} X_{l}}\right\} \\
+    &=\prod_{l=1}^{d} \E\left\{e^{i \xi \theta_{l} X_{l}}\right\} \\
+    &=\prod_{l=1}^{d} e^{\left(i \xi \theta_{l} \mu_{l}-\frac{1}{2} \xi^{2} \theta_{l}^{2}
+        \sigma_{l}^{2}\right)} \qquad \text { if } X_{l} \sim
+    \cN_{1}\left(\mu_{l}, \sigma_{l}^2 \right) \\
+    &=e^{i \xi \sum_{l=1}^{d} \theta_{l} \mu_{l}-\frac{1}{2} \xi^{2} \sum_{l=1}^{d} \theta_{l}^{2} \sigma_{l}^{2}}
+  \end{aligned}
+  $$
+  Hence, by injectivity of the characteristic function,
+  $$
+  \langle \theta,X \rangle \sim \cN_{1}\left(\sum_{l=1}^d \theta_{l} \mu_{l}, \sum_{l=1}^d \theta_{l}^{2} \sigma_{l}^{2}\right),
+  $$
+  which shows that $X$ is a Gaussian vector.
+\item Secondly, if $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
+  \in \R^r$, $Y = BX + b$ is also a Gaussian vector. Indeed for all $\theta \in
+  \R^r$, $\langle Y,\theta \rangle = \langle X,B^T\theta \rangle + \langle
+  \theta,b \rangle$ follows a univariate normal distribution.
+\end{itemize}
 
 \begin{theorem} A random vector $X: \Omega \rightarrow \mathbb{R}^{d}$ is
   Gaussian if and only if, there exists a vector $\mu \in \mathbb{R}^{d}$ and a
-  positive semi-definite matrice $K \in \R^{d \times d}$ such that, 
+  positive semi-definite matrix $K \in \R^{d \times d}$ such that, 
   
   \begin{equation} \label{eq:th}
-    \Phi_{X}(\xi)=\exp \left(i \mu \cdot \xi-\frac{1}{2} \xi^t K \xi\right),
-    \qquad \xi \in \Rd.
+    \Phi_{X}(\theta)=\exp \left(i \mu \cdot \theta-\frac{1}{2} \theta^t K \theta\right),
+    \qquad \theta \in \Rd.
   \end{equation}
   
-  Furthermore, $\mu$ and $K$ are the expectation and covariance of $X$. If $X$
-  is a random variable that admits the characteristic function above we use the
+  Furthermore, $\mu = \E[X]$ and $K = \mathbb{V}(X)$. If $X$
+  is a random variable that admits the characteristic function above, we use the
   notation $X \sim \cN_d(\mu,K)$. 
 \end{theorem}
 
@@ -138,40 +296,40 @@ Secondly, if $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
   $\mu:=\E[X]$ and covariance $K:=\E[(X-\mu)(X-\mu)^T]$ exist. 
   Let us fix $\theta \in \Rd$, since $Y:= \langle X,\theta \rangle \sim
   \cN_1(\mu^T\theta, \theta^TK\theta)$, we have, $$\Phi_{X}(\theta) = \Phi_Y(1)
-  = e^{i\theta^t\mu - \theta^TK\theta/2}.$$
+  = e^{i\langle \theta,\mu \rangle - \theta^TK\theta/2} \qquad \text{by prop. \ref{prop:uni_charac_gaussian}}.$$
 
   For the converse, assume that $X$ is a random variable with a characteristic
-  function as (\ref{eq:th}) with $\mu \in \Rd$ and $K \in \R^{d\times d}_+$. Then
-  for all $\theta \in \Rd$ and $\xi \in R$,
+  function as (\ref{eq:th}) with $\mu \in \Rd$ and $K \in \R^{d\times d}_+$. Then,
+  for all $\theta \in \Rd$ and $\xi \in \R$,
   $$\Phi_{\langle X,\theta \rangle}(\xi) = \Phi_X(\xi \theta)
-  = e^{i \xi \mu^T\theta - \xi^2 \theta^TK\theta/2}.$$
+  = e^{i \xi \langle \theta,\mu \rangle - \xi^2 \theta^TK\theta/2}.$$
   We recognise the characteristic function of a univariate Gaussian
   distribution, which implies that $\langle X,\theta \rangle$ follows a
-  univariate distribution. It remains to prove that $\mu=\E[X]$ and
-  $K=\E[(X-\E[X])(X-\E[X])^T]$. Since $X$ is a Gaussian vector, we have seen that it
-  is squared integrable, thus, we can apply Proposition \ref{prop:charac},
+  univariate normal distribution and we conclude that $X$ is a Gaussian vector. It
+  remains to prove that $\mu=\E[X]$ and $K=\E[(X-\E[X])(X-\E[X])^T]$. Since $X$
+  is a Gaussian vector, it is squared integrable and we can thus apply Proposition \ref{prop:charac},
 
   \begin{equation*}
-    \Phi_{X}(\xi)=1 + i \E(X) \cdot \xi-\frac{1}{2} \xi^T \E\left(XX^T\right) \xi+o\left(\|\xi\|^{2}\right)
+    \Phi_{X}(\theta)=1 + i \E(X) \cdot \theta-\frac{1}{2} \theta^T \E\left(XX^T\right) \theta+o\left(\|\theta\|^{2}\right)
   \end{equation*}
 
-  Hence,
+  Hence, using that $\ln(1+y) = y - y^2/2 + o(y^2)$,
 
   \begin{equation*}
     \begin{aligned}
-      \ln \Phi_{X}(\xi) &= i \E(X)^T \xi-\frac{1}{2} \xi^T \E\left(XX^T\right) \xi +\frac{1}{2}\left(\E(X)^T \xi\right)^{2}+o\left(\|\xi\|^{2}\right) \\
-      &= i \E(X)^T \xi-\frac{1}{2} \xi^T\left(\E\left(XX^T\right)-\E(X)\E(X)^T\right) \xi+o\left(\|\xi\|^{2}\right) \\
-      &= i \E(X)^T \xi-\frac{1}{2} \xi^T\E\left((X-\E[X])(X-\E[X])^T\right) \xi+o\left(\|\xi\|^{2}\right)
+      \ln \Phi_{X}(\theta) &= i \E(X)^T \theta-\frac{1}{2} \theta^T \E\left(XX^T\right) \theta +\frac{1}{2}\left(\E(X)^T \theta\right)^{2}+o\left(\|\theta\|^{2}\right) \\
+      &= i \E(X)^T \theta-\frac{1}{2} \theta^T\left(\E\left(XX^T\right)-\E(X)\E(X)^T\right) \theta+o\left(\|\theta\|^{2}\right) \\
+      &= i \E(X)^T \theta-\frac{1}{2} \theta^T\E\left((X-\E[X])(X-\E[X])^T\right) \theta+o\left(\|\theta\|^{2}\right)
     \end{aligned}
   \end{equation*}
 
   On the other hand, by assumption,
 
   \begin{equation*}
-    \ln \Phi_{X}(\xi) = i \mu^T \xi-\frac{1}{2} \xi^t K \xi,
+    \ln \Phi_{X}(\theta) = i\langle \theta,\mu \rangle -\frac{1}{2} \theta^t K \theta.
   \end{equation*}
 
-  and we conclude by identification. 
+  We conclude by identifying both expressions.
 \end{proof}
 
 The theorem shows that a Gaussian vector is fully characterised by its two first
@@ -179,129 +337,132 @@ moments!
 
 \begin{corollary}
   If $X$ is a Gaussian vector, its coordinates are independant if and only if
-  the covariance is diagonal. 
+  its covariance matrix is diagonal. 
 \end{corollary}
 
 \begin{proof}
-  Indeed from the theroem, if $K$ is diagonal the characteristic function can be
-  factorized in a product which characterised the independence. 
+  Indeed from the last theorem, if $K$ is diagonal, the characteristic function can be
+  factorized in a product which characterises the independence (Corollary \ref{cor:independence}). 
 \end{proof}
 
-\begin{definition}[Standard normal random vector]
+\begin{definition}[Standard Gaussian random vector]
   $X$ is called a \textbf{standard Gaussian} vector on $\Rd$ if its coordinates are i.i.d with distribution
-  $\cN(0,1)$. By the last theorem, in that case $X \sim \cN_d(0,I_d)$.
+  $\cN_1(0,1)$. By the last theorem,  $X \sim \cN_d(0,I_d)$.
 \end{definition}
 
 By independence of the coordinates we see that the
 density function of $X \sim \cN_d(0,I_d)$ is
 
-$$f(x)=(2 \pi)^{-\frac{d}{2}} e^{-\frac{1}{2}\|x\|_2^{2}}, \qquad x \in \Rd.$$
+$$f(x)=(2 \pi)^{-\frac{d}{2}} e^{-\frac{1}{2}\|x\|_2^{2}}, \quad x \in \Rd.$$
 
 \begin{theorem}
-  Let $X$ be a Gaussian vector with mean $\mu$ and covariance $K$ (i.e. $X \sim \cN{\mu,K}$), then $X =
+  Let $X$ be a Gaussian vector, $X \sim \cN_d(\mu,K)$ if and only if $X =
   K^{1/2}Z + \mu$, where $Z \sim \cN_d(0,I_d)$ and the equality holds in
   distribution. 
 \end{theorem}
 
-\begin{proof}
-  $K$ is a covariance matrix which is a semi-definite positive symmetric matrix,
+\begin{proof} Assume that $X \sim \cN_d(\mu,K)$, $K$ is a semi-definite positive matrix,
   hence there exists an orthogonal matrix $U$ and a diagonal matrix $D$ (with nonnegative diagonal
-  elements) such that $K = UDU^T$. Recall that the square root of a
-  semi-definite positive symmetric matrix is defined as $K^{1/2}:= UD^{1/2}U^T$ (the
-  definition makes sense since $U^T = U^{-1}$, $K^{1/2}K^{1/2} = K$).\\
-  $Z \sim \cN_d(0,I_d)$ is a Gaussian vector and we have seen that any affine transormation of a
-  Gaussian vector is a Gaussian vector, therefore $Y:= K^{1/2}Z + \mu$ is a
+  elements) such that $K = UDU^T$\footnote{Recall that the square root of a
+  semi-definite positive matrix is defined as $K^{1/2}:= UD^{1/2}U^T$ (the
+  definition makes sense since $U^T = U^{-1}$, $K^{1/2}K^{1/2} = K$).}. If $Z
+\sim \cN_d(0,I_d)$, since any affine transformation of a
+  Gaussian vector is a Gaussian vector, $Y:= K^{1/2}Z + \mu$ is a
   Gaussian vector. As mentioned previously, a Gaussian vector is characterised
   by its two first moments and $\E[Y] =K^{1/2}\E[Z]+\mu = \mu$ and $\mathbb{V}[Y] =
-  K^{1/2}\mathbb{V}[Z]K^{1/2} = K$, Q.E.D.
+  K^{1/2}\mathbb{V}[Z]K^{1/2} = K$, we conclude that $X=Y$ in distribution.
+
+  By the same argument, the other direction is immediate. 
 \end{proof}
 
 \begin{prop}
-  If $X \sim \cN(\mu,K)$, $X$ admits a density if and only if $K$ is
-  invertible and it that case, its density function is,
-  $$f(x)=|2 \pi K|^{-\frac{1}{2}} e^{-\frac{1}{2}\|x - \mu\|_{K^{-1}}^{2}}$$
+  If $X \sim \cN_d(\mu,K)$, $X$ admits a density if and only if $K$ is
+  invertible and in that case, its density function is
+  $$f(x)=|2 \pi K|^{-\frac{1}{2}} e^{-\frac{1}{2}\|x - \mu\|_{K^{-1}}^{2}},$$
+
+ where $\|.\|_A$ is the Mahalanobis distance (which is a norm for  definite positive matrices).
 \end{prop}
 
-$\|.\|_A$ is the Mahalanobis distance (which is a norm for  definite positive matrices).
+
 
 \begin{proof}
   We have seen that $X = K^{1/2}Z + \mu$, where $Z \sim \cN_d(0,I_d)$ and the equality holds in
-  distribution. The result follows from change of variable on the density of the
-  standard Gaussian density through the $C^1-$diffeomorphism $\phi:
+  distribution. The result follows from a change of variable on the density of the
+  standard Gaussian vector through the $C^1-$diffeomorphism $\phi:
   x \in \Rd \to K^{-1/2}(x - \mu)$.
 \end{proof}
 
-\section{Spherical Measure and Normal distribution}
+\section{Spherical measure and normal distribution}
 
-In this section the sphere is denoted $S^{d-1} = \{x \mid \|x\|=1\}$ and the
-unit ball $B^d = \{x \mid \|x\| \leq 1\}$. The set of vectorial isometries on
-$\Rd$ is $\{\phi:\Rd \to \Rd \text{ linear } \mid \|\phi(x)\|=\|x\| \forall x
-\in \Rd \}$. The set of associated matrices is the orthogonal group $O(d) = \{A
-\in \R^{d \times d} | A^TA = I_d\}$. 
-
-\textbf{Goals:}
-\begin{itemize}
-\item define a measure $\omega_d$ on
-  $(S^{d-1},\cB(S^{d-1}))$ that is invariant to isometries, in order to have a
-  canonical measurable space $(S^{d-1},\cB(S^{d-1}), \omega_d)$ on the sphere.
-\item introduce the change of variable in polar coordinates
-\end{itemize}
-
-The Lebesgue measure $\lambda_d$ on $\Rd$ is the unique (up to constants)
-translation-invariant measure on $\Rd$. Similarly $\omega_d$ is the unique (up to
-constants) measure on $S^{d-1}$ invariant to isometries.
+In this section we show how one can define a canonical measure $\sigma_d$ on
+$(S^{d-1},\cB(S^{d-1}))$ that is invariant to isometries. Similarly to the
+Lebesgue measure $\lambda_d$ that is the unique --- up to constants ---
+translation-invariant measure on $\Rd$,, $\sigma_d$ is the unique probability measure on $S^{d-1}$ invariant to isometries.
 
 \begin{definition}
-  If $A \in \mathcal{B}\left(S^{d-1}\right)$, we define the \emph{wedge} $\Gamma(A)$ the Borel set
+  If $A \in \mathcal{B}\left(S^{d-1}\right)$, we define the \emph{wedge}
+  $\Gamma(A)$ as the Borel set
   of $\mathbb{R}^{d}$ defined by
   $$
   \Gamma(A)=\{r x ; r \in[0,1] \text { and } x \in A\}
   $$
   For all $A \in \mathcal{B}\left(S^{d-1}\right)$, the measure,
   $$
-  \omega_{d}(A)=d \lambda_{d}(\Gamma(A))
+  \omega_{d}(A)= \lambda_{d}(\Gamma(A))
   $$
   is called the \textbf{spherical measure}. 
 \end{definition}
 
-\begin{theorem}
-  $\omega_d$ is invariant to isometries and for any measurable function $f: \Rd \to \R_+$, $$\boxed{\int_{\R^{d}} f(x) d x=\int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) r^{d-1} d r\right) d \omega_d(\gamma)}$$
+\begin{prop}
+  The volume of the d-dimensional ball $B^d = \{x \mid \|x\| \leq 1\} $ is
+  $$ \lambda_d(B^d) = \omega_d(S^{d-1}) =  \frac{\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}+1\right)}.$$
+\end{prop}
+
+\begin{definition}[Uniform probability distribution on the sphere]
+
+  \begin{equation}
+    \sigma_{d}(A):=\frac{\Gamma\left(\frac{d}{2}+1\right)}{\pi^{d / 2}} \lambda_{d}(\{r x: 0 \leq r \leq 1, x \in A\})
+  \end{equation}
+
+  defines the \textbf{uniform probability distribution on the sphere}.
+  
+\end{definition}
+
+\begin{theorem}[Polar change of variable] For any measurable function $f: \Rd
+  \to \R_+$,
+
+  \begin{equation*}
+    \begin{aligned}
+      \int_{\R^{d}} f(x) dx &= \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d
+      \omega_d(\gamma)\\ &=  \textcolor{blue}{\omega_d(S^{d-1})} \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d \textcolor{blue}{\sigma_d}(\gamma)
+    \end{aligned}
+  \end{equation*}
+
+
+
+  If $f$ is integrable on $\Rd$, the above equation also holds. 
 \end{theorem}
 
-+ integrable setting? 
-
-\begin{prop}
-  The volume of the d-dimensional ball $B^d = \{x \mid \|x\| \leq 1\} $ is $\frac{\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}+1\right)}$.
-\end{prop}
-
-\begin{proof}
-  It is an application of the Fubini theorem.
-\end{proof}
-Therefore, $\omega_d(S^{d-1}) = d\lambda_d(B^d) = d\frac{\pi^{d /
-    2}}{\Gamma\left(\frac{d}{2}+1\right)} = \frac{2 \pi^{d /
-    2}}{\Gamma\left(\frac{d}{2}\right)} $, and we define the \textbf{uniform
-  probability distribution on the sphere} as
-
-\begin{equation}
-  \sigma_{d}(A):=\frac{\Gamma\left(\frac{d}{2}+1\right)}{\pi^{d / 2}} \lambda_{d}(\{r x: 0 \leq r \leq 1, x \in A\}).
-\end{equation}
-
 \paragraph{Remark.} If $f$ is radial, i.e. $f: \Rd\to \R_+$ and there exists $g: \R
-\to \R_+$ such that $f(x) = g(\|x\|)$ for all $x \in \Rd$ then the change of
-variable formula leads to,
+\to \R_+$ such that $f(x) = g(\|x\|)$ for all $x \in \Rd$, then the polar change of
+variable leads to,
 
 \begin{equation}
-  \int_{\R^{d}} f(x) d x= \omega_d(S^{d-1})\int_{0}^{\infty} g(r)r^{d-1} d r
+  \int_{\R^{d}} f(x) d x= \omega_d(S^{d-1})\int_{0}^{\infty} g(r)dr^{d-1} d r
 \end{equation}
 
-\begin{prop}
-  The measure $\sigma_{d}$ is the unique probability measure on the sphere
-  $S^{d-1}$ invariant to the action of vectorial isometries.
-\end{prop}
+%Therefore, $\omega_d(S^{d-1}) = d\lambda_d(B^d) = d\frac{\pi^{d /
+%    2}}{\Gamma\left(\frac{d}{2}+1\right)} = \frac{2 \pi^{d /
+%    2}}{\Gamma\left(\frac{d}{2}\right)} $, and we define the \textbf{uniform
+%    probability distribution on the sphere} as
 
-+ Link to the Haar measure
+\begin{theorem}
+  The probability measure $\sigma_{d}$ is the unique probability measure on the sphere
+  $S^{d-1}$ invariant to the action of vectorial isometries, hence we call it
+  the uniform probability measure on the sphere. 
+\end{theorem}
 
-\begin{prop}[Exercise 3.3.7] Let us write $X \sim N_d\left(0, I_{d}\right)$ in
+\begin{prop}[Exercise 3.3.7 \citet{vershynin2018high}] Let us write $X \sim N_d\left(0, I_{d}\right)$ in
   polar  form as
   $$
   X=R \theta
@@ -320,17 +481,17 @@ variable formula leads to,
 \begin{proof}
   We note $\rho$ the density of $X \sim \cN_d(0,I_d)$. We want to compute the
   distribution of $R$ and $\theta$ where $(R,\theta) = (\|X\|_2,X/\|X\|_2)$ is a random
-  vector with values in $\R \times S^{d-1}$. \\ For all measurable function
+  vector with values in $\R \times S^{d-1}$. For all measurable function
   $h:\R \times S^{d-1} \to \R$ positive or bounded, 
 
 \begin{equation}
 \begin{aligned}
-  \E[h(R,\theta)] &= \int_{\R^{d}} h(\|x\|,x/\|x\|)\rho(x) d x \\  &= \int_{S^{d-1}}\left(\int_{0}^{\infty} h(r,\theta) \rho(r\theta) r^{d-1} d r\right) d \omega_d(\theta) \\
-  &= \int_{S^{d-1}}\left(\int_{\R} h(r,\theta) \underbrace{\frac{e^{-r^2/2}}{(2\pi)^{d/2}} r^{d-1}1_{r \geq 0}}_{=: g(r,\theta)} d r\right) d \omega_d(\theta)
+  \E[h(R,\theta)] &= \int_{\R^{d}} h(\|x\|,x/\|x\|)\rho(x) d x \\  &= \int_{S^{d-1}}\left(\int_{0}^{\infty} h(r,\theta) \rho(r\theta)dr^{d-1} d r\right) d \omega_d(\theta) \\
+  &= \int_{S^{d-1}}\left(\int_{\R_+} h(r,\theta) \underbrace{\frac{e^{-r^2/2}}{(2\pi)^{d/2}} dr^{d-1}1_{r \geq 0}}_{=: g(r,\theta)} d r\right) d \omega_d(\theta)
 \end{aligned}
 \end{equation}
 
-$g$ is the density of $(R,\theta)$, we notice that $g$ is constant in with
+$g$ is the density of $(R,\theta)$ and  we notice that $g$ is constant with
 respect to $\theta$, it implies both that $R$ and $\theta$ are independent and
 that $\theta$ is uniformely distributed on the sphere.
 
@@ -341,30 +502,109 @@ density function of $R$ is\footnote{without knowing the generalized gamma densit
   normalisation constant can be obtained from the gamma density
   function by applying the change of variable $\phi(x) = \sqrt{x}$},
 
-$$f_{\gamma}(r) = e^{-(r/\sqrt{2})^2} r^{d-1} \frac{2}{\Gamma(d/2)2^{d/2}}1_{r\
-  \geq 0}$$
-Thus,
+$$f_{\gamma}(r) = e^{-r^2/2} r^{d-1} \frac{2}{\Gamma(d/2)2^{d/2}}1_{r \geq 0}.$$
+Thus for all $r \geq 0, \theta \in S^{d-1}$,
 
-$$ g(r,\theta) = f_{\gamma}(r) \times \frac{\Gamma(d/2)2^{d/2}}{2(2\pi)^{d/2}} = f_{\gamma}(r) \times \frac{\Gamma(d/2)}{2\pi^{d/2}} = f_{\gamma}(r) \times \omega_d(S^{d-1})^{-1}$$
-
+$$ g(r,\theta) = f_{\gamma}(r) \times \frac{d\Gamma(d/2)2^{d/2}}{2(2\pi)^{d/2}} = f_{\gamma}(r) \times \frac{\Gamma(d/2+1)}{\pi^{d/2}} = f_{\gamma}(r) \times \omega_d(S^{d-1})^{-1}$$
 \end{proof}
-
-\subsection{Gaussian concentration}
-
-Applying the concentration restult for an isotropic random vector, to $X \sim \cN_d(0,I_d)$ we get,
-
-\begin{equation}
-  \mathbb{P}\left\{\left|\|X\|_{2}-\sqrt{d}\right| \geq t\right\} \leq 2 \exp \left(-c t^{2}\right) \quad \text { for all } t \geq 0
-\end{equation}
-
-Using the notations of the last section, it says that $R \approx \sqrt{d}$ with
-high probability. Morevover, $X = RS \approx \sqrt{n}S \sim
-Unif(\sqrt{n}S^{d-1})$.
-
-Say more?
 
 \section{Sub-Gaussian vectors}
 
+\begin{definition}[Sub-gaussian random vectors] A random vector $X$ in
+  $\mathbb{R}^{d}$ is called sub-gaussian if the one-dimensional marginals
+  $\langle X, \theta \rangle$ are sub-gaussian random variables for all $\theta \in \mathbb{R}^{d} .$ The sub-gaussian norm of $X$ is defined as
+  $$
+  \|X\|_{\psi_{2}}=\sup _{\theta \in S^{d-1}}\|\langle X, \theta\rangle\|_{\psi_{2}}
+  $$
+\end{definition}
+
+The sub-gaussian norm defines a proper norm,
+\begin{itemize}
+\item Since the univariate sub-gaussian norm is a norm, it is obvious that $\|X\|_{\psi_2}
+  \geq 0$.
+\item If $\|X\|_{\psi_2} = 0$, then for all $\theta \in S^{d-1}$, $\|\langle
+  X,\theta \rangle\|_{\psi_2} = 0$ and since the univariate sub-gaussian norm is a
+  norm it implies $\langle X,\theta \rangle = 0$ a.s. For all $i=1,\ldots,d$,
+  taking, $\theta = e_i$,, leads to $\|X_i\|_2 = 0$ which implies $X_i = 0$
+  a.s., thus $X=0$ a.s.
+\item For the triangular inequality, $$\|X + Y\|_{\psi_2} =\sup _{\theta \in S^{d-1}}\|\langle X+Y,
+  \theta\rangle\|_{\psi_{2}} \leq \sup _{\theta \in S^{d-1}}\|\langle X,
+  \theta\rangle\|_{\psi_{2}} + \|\langle Y,\theta\rangle\|_{\psi_{2}} \leq \|X\|_{\psi_2} + \|Y\|_{\psi_2}$$ 
+\end{itemize}
+
+This norm is also invariant to rotation. Indeed, if $U \in \mathcal{O}(d)$, for
+all $\theta \in S^{d-1}$, $\langle U^TX,\theta \rangle = \langle X,U\theta
+\rangle$, and $\|U\theta\|_2 = \theta^TU^TU\theta = \theta^T\theta = 1$.
+Therefore, $\langle U^TX,\theta \rangle = \langle X,\tilde{\theta}\rangle$,
+where $\tilde{\theta} \in S^{d-1}$. 
+
+\paragraph{Example 1.} If $X \sim \mathcal{N}_d(0,\Sigma)$, $\|X\|_{\psi_2} = \lambda_{max}(\Sigma)$. Indeed for all $\theta \in S^{d-1}$, $\langle X,\theta \rangle
+\sim \mathcal{N}(0,\theta^T\Sigma\theta)$, and $\psi_{\langle X,\theta
+  \rangle}(t) = \frac{t^2\theta^T\Sigma\theta}{2}$ (the log moment generating function), hence for all $t \in \R$, $$\argmax_{\theta \in
+  S^{d-1}} \psi_{\langle X,\theta\rangle}(t) =  \frac{t^2
+  \lambda_{max}(\Sigma)}{2},$$ which implies $\|X\|_{\psi_2} =
+\lambda_{max}(\Sigma)$ (depending on the definition of the sub-gaussian
+univariate norm, there might be an absolute constant to add).
+
+\paragraph{Example 2.} If $X$ is a random vector with (non-necessarily
+independent) sub-gaussian coordinates, $X$ is still a sub-gausian vector but the
+norm can grow with the dimension! For all $\theta \in S^{d-1}$, by the
+triangular inequality,
+
+\begin{equation*}
+  \begin{aligned}
+    \|\langle X, \theta\rangle\|_{\psi_{2}} &=\left\|\sum_{i=1}^{d} \theta_{i} X_{i}\right\|_{\psi_{2}} \leq \sum_{i=1}^{d} |\theta_{i}|\left\|X_{i}\right\|_{\psi_{2}}\\
+    & \leq \max_{i \leq d}\left\|X_{i}\right\|_{\psi_{2}} \|\theta\|_1 \leq \sqrt{d}  \max_{i \leq d}\left\|X_{i}\right\|_{\psi_{2}}
+  \end{aligned}
+\end{equation*}
+
+Where we have used that for all $x \in \Rd$, $\|x\|_1 \leq \sqrt{d}\|x\|_2$. Taking the supremum over the sphere, it shows that, $$\left\|X\right\|_{\psi_{2}} \leq \textcolor{red}{\sqrt{d}}  \max_{i \leq d}\left\|X_{i}\right\|_{\psi_{2}}$$
+
+The bound grows with the dimension and quickly becomes vacuous, worse, it
+is tight! Indeed, consider a sub-gaussian real random variable $Z$ and define $X:=
+(Z,\ldots,Z)^T$. For all $\theta \in S^{d-1}$,
+
+\begin{equation*}
+  \|\langle X, \theta\rangle\|_{\psi_{2}} =\left\|\sum_{i=1}^{d} \theta_{i} Z\right\|_{\psi_{2}} = \left| \sum_{i=1}^d \theta_i \right|\left\|Z\right\|_{\psi_{2}} \leq \|\theta\|_1\left\|Z\right\|_{\psi_{2}} \leq \sqrt{d} \left\|Z\right\|_{\psi_{2}}
+\end{equation*}
+
+Let us note that for $\theta = (d^{-1/2}, \ldots, d^{-1/2})$,
+$\theta \in S^{d-1}$ and $\|\theta\|_1 = \sqrt{d}$. Thus, taking the supremum over the
+sphere, it shows that, $$\| X\|_{\psi_{2}} = \sqrt{d}\left\|Z\right\|_{\psi_{2}}
+>> \left\|Z\right\|_{\psi_{2}} = \max_{i \leq d}\left\|X_{i}\right\|_{\psi_{2}}.$$
+
+\paragraph{Example 3.} The last example shows that a real random vector with
+sub-gaussian coordinates does not necessarily behaves properly in high
+dimension. However, if we assume that $X$ is a random vector with \textbf{independent mean-zero}
+sub-gaussian coordinates, we can derive a more satisfying (i.e. independent
+of the dimension) bound for the sub-gaussian vector norm. It is because we can
+use a stronger inequality than the triangular inequality in that setting.
+
+\begin{prop}[Proposition 2.6.1 in \citet{vershynin2018high} --- Sums of independent sub-gaussians] Let
+  $X_{1}, \ldots, X_{d}$ be independent, mean zero, sub-gaussian random variables. Then $\sum_{i=1}^{d} X_{i}$ is also a sub-gaussian random variable, and
+  $$
+  \left\|\sum_{i=1}^{d} X_{i}\right\|_{\psi_{2}}^{2} \leq \sum_{i=1}^{d}\left\|X_{i}\right\|_{\psi_{2}}^{2}
+  $$
+  where again, depending on the definition of the sub-gaussian
+  univariate norm on take, there might be an absolute constant to add.
+\end{prop}
+
+Using this inequality, for all $\theta \in S^{d-1}$,
+
+\begin{equation*}
+  \begin{aligned}
+    \|\langle X, \theta\rangle\|_{\psi_{2}}^{2} &=\left\|\sum_{i=1}^{d} \theta_{i} X_{i}\right\|_{\psi_{2}}^{2} \leq \sum_{i=1}^{d} \theta_{i}^{2}\left\|X_{i}\right\|_{\psi_{2}}^{2}\\
+    & \leq \max_{i \leq d}\left\|X_{i}\right\|_{\psi_{2}}^{2}
+  \end{aligned}
+\end{equation*}
+
+Therefore, taking the supremum over the sphere, we get, 
+
+\begin{equation*}
+  \|X\|_{\psi_{2}} \leq \max _{i \leq d}\left\|X_{i}\right\|_{\psi_{2}}
+\end{equation*}
+
+\bibliography{file.bib}
 
 
 \end{document}

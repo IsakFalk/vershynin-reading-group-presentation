@@ -1,5 +1,5 @@
-%\documentclass{beamer}
-\documentclass[handout]{beamer} %handout -> collapse pauses
+\documentclass[10pt]{beamer}
+%\documentclass[handout, 10pt]{beamer} %handout -> collapse pauses
 
 % MANAGE HANDOUT
 %\usepackage{pgfpages} 
@@ -14,50 +14,75 @@
 %%% Remove nav symbols (and shift any logo down to corner)
 \setbeamertemplate{navigation symbols}{\vspace{-2ex}}
 
-\title{(Sub-)Gaussian Distributions}
+\title{Random vectors in high dimensions}
 \author{Dimitri Meunier}
 \institute{IIT}
 
 \begin{document}
 \maketitle
 
+\begin{frame}
+  \frametitle{Plan}
+
+  \begin{enumerate}
+  \item Random vectors
+    \pause
+  \item Characteristic function
+    \pause
+  \item Gaussian vectors
+    \pause
+  \item Sub-Gaussian vectors
+    \pause
+  \item Uniform probability measure on the sphere
+  \end{enumerate}
+\end{frame}
+
+
+
   \section{Refresher: random vectors}
 
   \begin{frame}
     \frametitle{Random Vectors -- moments}
 
-    A real random vector is a measurable function $X:(\Omega,\cA) \to
-    (\Rd,\cB(\Rd))$. We recall that the first moments are,
+    A real random vector is a measurable function,
+
+    \begin{align*}
+      X \colon (\Omega,\cA,\P) &\to  (\Rd,\cB(\Rd))\\
+      w &\mapsto (X_1(w), \ldots, X_d(w))
+    \end{align*}
+
+    \pause
 
     \begin{itemize}
     \item $\E[X] = (\E[X_1], \ldots, \E[X_d])^T \in \Rd$
       \pause
       
-    \item $\V[X] = \E[(X-\E[X])(X-\E[X])^T] =  \E[XX^T] \E[X]\E[X]^T$
+    \item $\V[X] = \E[(X-\E[X])(X-\E[X])^T] \pause =  \E[XX^T] - \E[X]\E[X]^T \in
+      \R^{d\times d}$
       \pause
-    \item $\V[X]_{ii} = \V[X_i]$
-    \item $\V[X]_{ij} = Cov(X_i,X_j)$        
+    %\item $\mathbb{V}[X]_{ii} = \mathbb{V}[X_i], i=1,\ldots,d$
+    \item $\V[X]_{ij} = Cov(X_i,X_j), \quad  i,j=1,\ldots,d$        
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
-    \frametitle{Random Vectors -- isotropy}
+  % \begin{frame}
+  %   \frametitle{Random Vectors -- isotropy}
 
-    \textbf{Isotropy:}  $\E[XX^T] = I_d$
+  %   \textbf{Isotropy:}  $\E[XX^T] = I_d$
 
-    \pause
+  %   \pause
 
-    Equivalently,   
+  %   Equivalently,   
+ 
+  %   \begin{itemize}
+  %   \item $\E[\langle X,\theta \rangle^2] = \|\theta\|_2^2$ for all $\theta \in
+  %     \Rd$
+  %   \item $\E[\langle X,\theta \rangle^2] = 1$ for all $\theta \in S^{d-1}$
+  %   \end{itemize}
 
-    \begin{itemize}
-    \item $\E[\langle X,\theta \rangle^2] = \|\theta\|_2^2$ for all $\theta \in
-      \Rd$
-    \item $\E[\langle X,\theta \rangle^2] = 1$ for all $\theta \in S^{d-1}$
-    \end{itemize}
-
-    \textbf{Proof} If $A$ and $B$ are symmetric, $A=B$ if and only if
-    $\theta^TA\theta = \theta^TB\theta$ for all $\theta \in \Rd$.
-  \end{frame}
+  %   \textbf{Proof} If $A$ and $B$ are symmetric, $A=B$ if and only if
+  %   $\theta^TA\theta = \theta^TB\theta$ for all $\theta \in \Rd$.
+  % \end{frame}
 
   \section{Gaussian vectors}
 
@@ -67,10 +92,10 @@
       if $X$ is a real random vector, the characteristic function of $X$ is the function
       $\Phi_{X}: \mathbb{R}^{d} \longrightarrow \mathbb{C}$ defined by
       $$
-      \Phi_{X}(\xi)=E[\exp (i \xi \cdot X)] = \int e^{i \xi \cdot x} \P_{X}(d x), \quad \xi \in \mathbb{R}^{d}
+      \Phi_{X}(\xi)=\E[e^{i\langle \xi,X \rangle}] = \int_{\Rd} e^{i\langle \xi,X \rangle} \P_{X}(d x), \quad \xi \in \mathbb{R}^{d}
       $$
 
-      $\Phi_{X}$ is the Fourier transform of the distribution on $X$.
+    where $\P_X(A) = \P(X^{-1}(A))$, for all $A \in \cB(\Rd)$. $\Phi_{X}$ is the Fourier transform of the distribution of $X$.
     \end{definition}
 
     \pause
@@ -83,11 +108,11 @@
     \pause
 
     
-    \begin{proposition}
+    \begin{corollary}
       $X=(X_1,\ldots,X_d)$ has independent coordinates if and only if \\
       $\Phi_{X}\left(\xi_{1}, \ldots, \xi_{d}\right)=\prod_{i=1}^{d}
       \Phi_{X_{i}}\left(\xi_{i}\right)$
-    \end{proposition}
+    \end{corollary}
   \end{frame}
 
   \begin{frame}{Univariate Gaussian distribution}
@@ -108,8 +133,15 @@
     \pause
 
       $$
-      \Phi_{X}(\xi)=\exp \left(i\xi \mu -\frac{\sigma^{2} \xi^{2}}{2}\right), \quad \xi \in \mathbb{R}
+      \boxed{\Phi_{X}(\xi)=\exp \left(i\xi \mu -\frac{\sigma^{2} \xi^{2}}{2}\right), \quad \xi \in \mathbb{R}}
       $$
+
+      \pause
+
+      \textbf{Proof}. It is sufficient to show that $\Phi_{Z}(\xi)=\exp
+      \left(-\frac{\xi^{2}}{2}\right)$. For this, use integration by parts to
+      show that $\Phi_Z$ satisfies $\Phi_Z'(\xi) = \xi\Phi_Z(\xi)$, $\Phi_Z(0) =
+      1$.
   \end{frame}
 
   \begin{frame}{Gaussian vectors -- definition}
@@ -129,11 +161,12 @@
         \qquad \xi \in \Rd.
       \end{equation}
 
-      Furthermore, $\mu = \E[X]$ and $K := \mathbb{V}(X)$, we use the notation
+      Furthermore, $\mu = \E[X]$ and $K = \mathbb{V}(X)$, we use the notation
       $X \sim \cN_d(\mu,K)$.
     \end{theorem}
 
-    \textcolor{red}{PROOF}.
+    \pause
+    \textbf{Proof.}
   \end{frame}
 
   \begin{frame}{Gaussian vectors -- properties}
@@ -148,12 +181,9 @@
       \item If $X$ is a vector of independent univariate
         Gaussian variables, $X$ is a Gaussian vector
 
-        \pause
-
-      \item  $X \sim \cN_d(0,I_d)$ if and only if its coordinates are i.i.d with
-        distribution $\cN(0,1)$. $X$ is called a \textbf{standard Gaussian}
-        vector.
-
+      %\item  $X \sim \cN_d(0,I_d)$ if and only if its coordinates are i.i.d with
+      %  distribution $\cN(0,1)$. $X$ is called a \textbf{standard Gaussian}
+      %  vector.
       \end{itemize}
     \end{corollary}
 
@@ -163,15 +193,33 @@
       If $X$ is a Gaussian vector, for all $B \in \R^{r \times d}$ and $b
       \in \R^r$, $Y = BX + b$ is also a Gaussian vector.
     \end{proposition}
+  \end{frame}
 
+  \begin{frame}
+    \frametitle{Gaussian vectors -- density}
+
+    \begin{corollary}
+      Let $X \sim \cN_d(\mu,K)$, then $X =
+      K^{1/2}Z + \mu$, where $Z \sim \cN_d(0,I_d)$ and the equality holds in
+      distribution. 
+    \end{corollary}
+
+    \pause
+
+    \begin{corollary}
+      
+      If $X \sim \cN_d(\mu,K)$, $X$ admits a density if and only if $K$ is
+      invertible and in that case, its density function is,
+      $$f(x)=|2 \pi K|^{-\frac{1}{2}} e^{-\frac{1}{2}\|x - \mu\|_{K^{-1}}^{2}}$$
+    \end{corollary}
   \end{frame}
 
   \begin{frame}{Sub-Gaussian vectors -- definition}
-    \begin{definition}[Sub-gaussian random vectors] A random vector $X$ in
+    \begin{definition}[Sub-gaussian random vector] A random vector $X$ in
       $\mathbb{R}^{d}$ is called sub-gaussian if the one-dimensional marginals
-      $\langle X, \theta \rangle$ are sub-gaussian random variables for all $\theta \in \mathbb{R}^{n} .$ The sub-gaussian norm of $X$ is defined as
+      $\langle X, \theta \rangle$ are sub-gaussian random variables for all $\theta \in \mathbb{R}^{d} .$ The sub-gaussian norm of $X$ is defined as
       $$
-      \|X\|_{\psi_{2}}=\sup _{\theta \in S^{n-1}}\|\langle X, \theta\rangle\|_{\psi_{2}}
+      \|X\|_{\psi_{2}}=\sup _{\theta \in S^{d-1}}\|\langle X, \theta\rangle\|_{\psi_{2}}
       $$
 
     \end{definition}
@@ -182,28 +230,9 @@
     
     \begin{itemize}
     \item Gaussian vectors
-    \item Random vectors with (independent) sub-gaussian coordinates
-    \item Uniform distribution on the sphere (next section !)
+    \item Random vectors with \emph{independent} sub-gaussian coordinates
+    \item Uniform distribution on the sphere (next section)
     \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Gaussian vectors -- density}
-
-    \begin{proposition}
-      Let $X \sim \cN(\mu,K)$, then $X =
-      K^{1/2}Z + \mu$, where $Z \sim \cN_d(0,I_d)$ and the equality holds in
-      distribution. 
-    \end{proposition}
-
-    \pause
-
-    \begin{corollary}
-      
-      If $X \sim \cN(\mu,K)$, $X$ admits a density if and only if $K$ is
-      invertible and in that case, its density function is,
-      $$f(x)=|2 \pi K|^{-\frac{1}{2}} e^{-\frac{1}{2}\|x - \mu\|_{K^{-1}}^{2}}$$
-    \end{corollary}
   \end{frame}
 
   \begin{frame}{Spherical distribution}
@@ -218,9 +247,10 @@
           $$
           \Gamma(A)=\{r x ; r \in[0,1] \text { and } x \in A\}
           $$
+          \pause
           The \textbf{spherical measure} on the sphere is defined by,
           $$
-          \omega_{d}(A)=d \lambda_{d}(\Gamma(A))
+          \omega_{d}(A)=\lambda_{d}(\Gamma(A))
           $$
         \end{definition}
       \end{column}
@@ -234,8 +264,9 @@
 
     \pause
 
-    It can be shown that $\omega_d(S^{d-1}) = d\lambda_d(B^d)  = \frac{2 \pi^{d /
-        2}}{\Gamma\left(\frac{d}{2}\right)} $.
+    It can be shown that $\omega_d(S^{d-1}) = \lambda_d(B^d)  = \frac{\pi^{d /
+        2}}{\Gamma\left(\frac{d}{2} + 1\right)} $.
+    \pause
 
     \begin{equation*}
       \sigma_{d}(A):= \omega_d(S^{d-1})^{-1} \omega_d(A)
@@ -257,8 +288,8 @@
 
         \begin{equation*}
           \begin{aligned}
-            \int_{\R^{d}} f(x) d x &=\int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) r^{d-1} d r\right) d \textcolor{blue}{\omega_d}(\gamma) \\ \pause
-            &= \textcolor{blue}{\omega_d(S^{d-1})^{-1}} \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) r^{d-1} d r\right) d \textcolor{blue}{\sigma_d}(\gamma)
+            \int_{\R^{d}} f(x) d x &=\int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d \textcolor{blue}{\omega_d}(\gamma) \\ \pause
+            &= \textcolor{blue}{\omega_d(S^{d-1})^{-1}} \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d \textcolor{blue}{\sigma_d}(\gamma)
           \end{aligned}
         \end{equation*}
 
@@ -291,12 +322,12 @@
 
   \end{frame}
 
-  \begin{frame}{Gaussian concentration}
-    \begin{itemize}
-    \item recall concentration of the norm
-    \item fine tune the interpretation for Gaussian (+ images)
-    \item Isotropy / Sub-Gaussianity of the uniform sphere r.v.
-    \item Examples of sub-gaussianity
-    \end{itemize}
-  \end{frame}
+  % \begin{frame}{Gaussian concentration}
+  %   \begin{itemize}
+  %   \item recall concentration of the norm
+  %   \item fine tune the interpretation for Gaussian (+ images)
+  %   \item Isotropy / Sub-Gaussianity of the uniform sphere r.v.
+  %   \item Examples of sub-gaussianity
+  %   \end{itemize}
+  % \end{frame}
 \end{document}
