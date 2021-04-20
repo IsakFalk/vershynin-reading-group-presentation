@@ -38,7 +38,7 @@ the lecture notes \citet{le2006integration} (in French!).
 Let $(\Omega,\cA,\P)$ be a probability space and $(E,\cE)$ a measurable space.
 Recall that a random variable is a measurable function $X:(\Omega,\cA) \to
 (E,\cE)$. The distribution of $X$ denoted $\P_X$ is the probability measure on
-$(E,\cE)$ defined for all $A \in \cA$ by $\P_X(A) = \P(X^{-1}(A))$ ($P_X$ is the
+$(E,\cE)$ defined for all $A \in \cA$ by $\P_X(A) = \P(X^{-1}(A))$ ($\P_X$ is the
 push-forward measure of $\P$ through $X$).
 
 If $(E,\cE)$ is $(\R,\cB(\R))$, $X$ is called a \textbf{real random
@@ -95,7 +95,7 @@ next section.
   $$
 \end{theorem}
 
-\begin{theorem}[Continuity and derivality of a parametric integral] \label{th:contparamint}
+\begin{theorem}[Continuity and differentiability of a parametric integral] \label{th:contparamint}
  Let $(U, d)$ be a metric space and $f: U \times E \longrightarrow \mathbb{R}$ (or $\mathbb{C}$). Let $u_{0} \in E$. We assume that,
 
  \begin{enumerate}
@@ -134,7 +134,7 @@ $$
   \Phi_{X}(\xi)=\E[e^{i \langle \xi,X \rangle}] = \int_{\Rd} e^{i\langle \xi,X \rangle} \P_{X}(d x), \quad \xi \in \mathbb{R}^{d}
   $$
 
-  $\Phi_{X}$ is the Fourier transform of the distribution $P_X$.
+  $\Phi_{X}$ is the Fourier transform of the distribution $\P_X$.
 \end{definition}
 
 \paragraph{Remark.} The characteristic function is defined as a parametric integral, and
@@ -525,8 +525,7 @@ The sub-gaussian norm defines a proper norm,
 \item If $\|X\|_{\psi_2} = 0$, then for all $\theta \in S^{d-1}$, $\|\langle
   X,\theta \rangle\|_{\psi_2} = 0$ and since the univariate sub-gaussian norm is a
   norm it implies $\langle X,\theta \rangle = 0$ a.s. For all $i=1,\ldots,d$,
-  taking, $\theta = e_i$,, leads to $\|X_i\|_2 = 0$ which implies $X_i = 0$
-  a.s., thus $X=0$ a.s.
+  taking, $\theta = e_i$,, leads to  $X_i = 0$ a.s. and thus $X=0$ a.s.
 \item For the triangular inequality, $$\|X + Y\|_{\psi_2} =\sup _{\theta \in S^{d-1}}\|\langle X+Y,
   \theta\rangle\|_{\psi_{2}} \leq \sup _{\theta \in S^{d-1}}\|\langle X,
   \theta\rangle\|_{\psi_{2}} + \|\langle Y,\theta\rangle\|_{\psi_{2}} \leq \|X\|_{\psi_2} + \|Y\|_{\psi_2}$$ 
@@ -586,7 +585,7 @@ use a stronger inequality than the triangular inequality in that setting.
   \left\|\sum_{i=1}^{d} X_{i}\right\|_{\psi_{2}}^{2} \leq \sum_{i=1}^{d}\left\|X_{i}\right\|_{\psi_{2}}^{2}
   $$
   where again, depending on the definition of the sub-gaussian
-  univariate norm on take, there might be an absolute constant to add.
+  univariate norm one takes, there might be an absolute constant to add.
 \end{prop}
 
 Using this inequality, for all $\theta \in S^{d-1}$,

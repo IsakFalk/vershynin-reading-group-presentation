@@ -1,5 +1,5 @@
-\documentclass[10pt]{beamer}
-%\documentclass[handout, 10pt]{beamer} %handout -> collapse pauses
+%\documentclass[10pt]{beamer}
+\documentclass[handout, 10pt]{beamer} %handout -> collapse pauses
 
 % MANAGE HANDOUT
 %\usepackage{pgfpages} 
@@ -140,7 +140,7 @@
 
       \textbf{Proof}. It is sufficient to show that $\Phi_{Z}(\xi)=\exp
       \left(-\frac{\xi^{2}}{2}\right)$. For this, use integration by parts to
-      show that $\Phi_Z$ satisfies $\Phi_Z'(\xi) = \xi\Phi_Z(\xi)$, $\Phi_Z(0) =
+      show that $\Phi_Z$ satisfies $\Phi_Z'(\xi) = -\xi\Phi_Z(\xi)$, $\Phi_Z(0) =
       1$.
   \end{frame}
 
@@ -289,7 +289,7 @@
         \begin{equation*}
           \begin{aligned}
             \int_{\R^{d}} f(x) d x &=\int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d \textcolor{blue}{\omega_d}(\gamma) \\ \pause
-            &= \textcolor{blue}{\omega_d(S^{d-1})^{-1}} \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d \textcolor{blue}{\sigma_d}(\gamma)
+            &= \textcolor{blue}{\omega_d(S^{d-1})} \int_{S^{d-1}}\left(\int_{0}^{\infty} f(r \gamma) dr^{d-1} d r\right) d \textcolor{blue}{\sigma_d}(\gamma)
           \end{aligned}
         \end{equation*}
 
